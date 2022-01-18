@@ -16,7 +16,7 @@ from datetime import datetime
 
 sys.path.insert(0, os.path.abspath("."))
 
-from src import __author__, __version__
+from sphinxcontrib.icon import __author__, __version__
 
 
 # -- Project information -------------------------------------------------------

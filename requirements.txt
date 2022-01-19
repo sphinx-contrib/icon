@@ -3,3 +3,4 @@ pytest
 Sphinx
 sphinxcontrib-spelling
 sphinx-copybutton
+docutils

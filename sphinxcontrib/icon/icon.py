@@ -16,6 +16,30 @@ class icon(nodes.General, nodes.Element):
     pass
 
 
+def get_glyph(text):
+    """
+    get the glyph from text
+
+    Return a tuple of (glyph, font) from the provided text. raise an error if one of them does not exist
+
+    :param text: The text to transform (e.g. "fa fa-folder")
+    """
+
+    # Read YAML file
+    with METADATA_FILE.open("r") as f:
+        fontawesome_icons = safe_load(f)
+
+    # split the icon name to find the name inside
+    m = re.match(r"^(fab|far|fa|fas) fa-([\w-]+)$", text)
+    if not m:
+        raise ValueError(f'invalid icon name: "{text}"')
+    if not m.group(2) in fontawesome_icons:
+        raise ValueError(f'icon "{m.group(2)}" is not part of fontawesome 5.15.4')
+
+    # return (font, glyph)
+    return m.group(1), m.group(2)
+
+
 def depart_icon_node(self, node):
     """Empty depart function, everything is handled in visit"""
     pass
@@ -24,8 +48,11 @@ def depart_icon_node(self, node):
 def visit_icon_node_html(self, node):
     """create the html output"""
 
-    glyph = node["glyph"]
-    font = node["font"]
+    try:
+        font, glyph = get_glyph(node["icon"])
+    except ValueError as e:
+        self.builder.warn(str(e))
+        raise nodes.SkipNode
 
     self.body.append(f'<i class="{font} fa-{glyph}"></i>')
 
@@ -35,11 +62,15 @@ def visit_icon_node_html(self, node):
 def visit_icon_node_latex(self, node):
     """create the latex output"""
 
-    glyph = node["glyph"]
+    try:
+        font, glyph = get_glyph(node["icon"])
+    except ValueError as e:
+        self.builder.warn(str(e))
+        raise nodes.SkipNode
 
     # detect the font
     font_list = {"fa": None, "far": "regular", "fas": "solid", "fab": "brand"}
-    font = font_list[node["font"]]
+    font = font_list[font]
 
     # install fontawesome 5 package
     # TODO install it on the fly using the otf files downloaded in var
@@ -49,7 +80,7 @@ def visit_icon_node_latex(self, node):
 
     # build the output
     cmd = "\\faIcon"
-    if font is None:
+    if font is not None:
         cmd += f"[{font}]"
     cmd += f"{{{glyph}}}"
 
@@ -58,10 +89,10 @@ def visit_icon_node_latex(self, node):
     return
 
 
-def visit_icon_node_unsuported(self, node, platform):
+def visit_icon_node_unsuported(self, node):
     """raise error when the requested output is not supported"""
 
-    self.builder.warn(f"{platform}: unsupported output format (node skipped)")
+    self.builder.warn("Unsupported output format (node skipped)")
     raise nodes.SkipNode
 
 
@@ -75,7 +106,8 @@ _NODE_VISITORS = {
 
 
 def icon_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-    """add inline icons
+    """
+    add inline icons
 
     Returns 2 part tuple containing list of nodes to insert into the
     document and a list of system messages.  Both are allowed to be
@@ -90,21 +122,7 @@ def icon_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
     :param content: The directive content for customization.
     """
 
-    # Read YAML file
-    with METADATA_FILE.open("r") as f:
-        fontawesome_icons = safe_load(f)
-
-    # split the icon name to find the name inside
-    m = re.match("^(fab|far|fa|fas) fa-(\w+)$", text)
-    if not m:
-        raise ValueError(f"invalid icon name: {text}")
-    if not m.group(2) in fontawesome_icons:
-        raise ValueError(f"icon {text} is not part of fontawesome 5.15.4")
-
-    glyph = m.group(2)
-    font = m.group(1)
-
     # create the node
-    node = icon(glyph=glyph, font=font)
+    node = icon(icon=text)
 
     return [node], []

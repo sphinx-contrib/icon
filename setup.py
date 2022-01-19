@@ -10,7 +10,7 @@ LONG_DESCRIPTION = open("README.rst").read()
 
 setup_params = {
     # metadata
-    "name": "sphinx-icon",
+    "name": "sphinxcontrib-icon",
     "version": version,
     "license": "BSD 2-Clause",
     "licence_file": "LICENSE",
@@ -36,6 +36,7 @@ setup_params = {
     "python_requires": ">=3.6.9",
     "packages": setuptools.find_packages(),
     "include_package_data": True,
+    "namespace_packages": ["sphinxcontrib"],
     "install_requires": ["Deprecated"],
     "cmdclass": {"develop": build.DevelopCmd, "install": build.InstallCmd},
     # extras_require

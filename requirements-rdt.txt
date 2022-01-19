@@ -1,5 +1,0 @@
-sphinx-icon
-Sphinx
-sphinxcontrib-spelling
-sphinx-copybutton
-docutils

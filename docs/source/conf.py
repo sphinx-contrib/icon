@@ -21,7 +21,7 @@ from sphinxcontrib.icon import __author__, __version__
 
 # -- Project information -------------------------------------------------------
 
-project = "template"
+project = "sphinx-icon"
 copyright = f"2020-{datetime.now().year}, {__author__}"
 author = __author__
 
@@ -54,7 +54,7 @@ exclude_patterns = ["**.ipynb_checkpoints"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "alabaster"
+html_theme = "furo"
 
 
 # -- Options for spelling output -----------------------------------------------

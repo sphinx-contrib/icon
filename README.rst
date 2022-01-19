@@ -1,7 +1,7 @@
 Sphinx-Icon
 ===========
 
-.. image:: https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square
+.. image:: https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat
     :alt: All contributors
     :target: AUTHORS.rst
 
@@ -44,13 +44,13 @@ Sphinx-Icon
 Overview
 --------
 
-`sphinx-icon` is a Sphinx extention to allow developers to use the `icon` role to display inlined icons. 
+:code:`sphinx-icon` is a Sphinx extention to allow developers to use the :code:`icon` role to display inlined icons. 
 The extention currently supports only Fontawsome 5.15.4 icons.
-Please go to our doc if you want to know more.
+Please go to our `doc <https://sphinx-icon.readthedocs.io/en/latest/>`__ if you want to know more.
 
 Contribute
 ----------
 
 If you want to contribute you can fork the project in you own repository and then use it. 
-If you consider working with us, please follow the `contributing guidelines <CONTRIBUTING.rst>`__. 
-Meet our `contributor <AUTHORS.rst>`__. 
+If you consider working with us, please follow the `contributing guidelines <https://github.com/12rambau/sphinx-icon/blob/main/CONTRIBUTING.rst>`__. 
+Meet our `contributor <https://github.com/12rambau/sphinx-icon/blob/main/AUTHORS.rst>`__. 

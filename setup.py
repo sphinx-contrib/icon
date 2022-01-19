@@ -53,7 +53,7 @@ setup_params = {
     "extras_require": {
         "dev": ["pre-commit", "commitizen"],
         "test": ["coverage", "pytest"],
-        "doc": ["Sphinx", "sphinxcontrib-spelling", "sphinx-copybutton"],
+        "doc": ["Sphinx", "sphinxcontrib-spelling", "sphinx-copybutton", "furo"],
     },
 }
 

@@ -1,5 +1,6 @@
 import setuptools
-import build
+
+from . import build
 
 # set the version number
 version = "0.0.0"

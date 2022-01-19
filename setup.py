@@ -13,7 +13,7 @@ setup_params = {
     "name": "sphinxcontrib-icon",
     "version": version,
     "license": "BSD 2-Clause",
-    "licence_file": "LICENSE",
+    "license_file": "LICENSE",
     "description": DESCRIPTION,
     "long_description": LONG_DESCRIPTION,
     "long_description_content_type": "text/x-rst",

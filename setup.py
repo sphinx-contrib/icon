@@ -40,9 +40,11 @@ setup_params = {
     "install_requires": ["Deprecated"],
     "cmdclass": {"develop": build.DevelopCmd, "install": build.InstallCmd},
     # extras_require
-    "dev": ["pre-commit", "commitizen"],
-    "test": ["coverage", "pytest"],
-    "doc": ["Sphinx", "sphinxcontrib-spelling", "sphinx-copybutton"],
+    "extras_require": {
+        "dev": ["pre-commit", "commitizen"],
+        "test": ["coverage", "pytest"],
+        "doc": ["Sphinx", "sphinxcontrib-spelling", "sphinx-copybutton"],
+    },
 }
 
 setuptools.setup(**setup_params)

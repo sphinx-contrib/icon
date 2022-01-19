@@ -6,6 +6,8 @@
 Welcome to template's documentation!
 ====================================
 
+I'm a folder icon: :icon:`fa fa-folder`
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

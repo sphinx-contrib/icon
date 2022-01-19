@@ -1,7 +1,7 @@
 import setuptools
 import build
 
-# set the version number 
+# set the version number
 version = "0.0.0"
 
 # set some text as CONST variables for readability
@@ -22,7 +22,7 @@ setup_params = {
     "url": "https://github.com/12rambau/sphinx-icon",
     "download_url": f"https://github.com/12rambau/sepal_ui/archive/v{version}.tar.gz",
     "keywords": ["skeleton", "Python"],
-    "classifiers": [ 
+    "classifiers": [
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Build Tools",
@@ -32,18 +32,16 @@ setup_params = {
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
     ],
-    # options  
+    # options
     "python_requires": ">=3.6.9",
     "packages": setuptools.find_packages(),
     "include_package_data": True,
     "install_requires": ["Deprecated"],
-    "mdclass": {
-        "develop": build.DevelopCmd
-    },
+    "cmdclass": {"develop": build.DevelopCmd, "install": build.InstallCmd},
     # extras_require
     "dev": ["pre-commit", "commitizen"],
     "test": ["coverage", "pytest"],
-    "doc": ["Sphinx", "sphinxcontrib-spelling", "sphinx-copybutton"]
+    "doc": ["Sphinx", "sphinxcontrib-spelling", "sphinx-copybutton"],
 }
 
 setuptools.setup(**setup_params)

@@ -37,6 +37,7 @@ release = __version__
 extensions = [
     "sphinx_copybutton",
     "sphinxcontrib.spelling",
+    "sphinxcontrib.icon",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -60,7 +61,7 @@ html_theme = "alabaster"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
-# -- Options for spelling output -------------------------------------------------
+# -- Options for spelling output -----------------------------------------------
 spelling_lang = "en_US"
 spelling_show_suggestions = True
 spelling_verbose = False

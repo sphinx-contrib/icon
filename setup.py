@@ -47,7 +47,7 @@ setup_params = {
     "packages": setuptools.find_packages(),
     "include_package_data": True,
     "namespace_packages": ["sphinxcontrib"],
-    "install_requires": ["Deprecated", "docutils"],
+    "install_requires": ["Deprecated", "docutils", "yaml"],
     "cmdclass": {"develop": DevelopCmd},
     # extras_require
     "extras_require": {

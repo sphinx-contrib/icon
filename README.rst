@@ -1,6 +1,5 @@
-python app template
-===================
-
+Sphinx-Icon
+===========
 
 .. image:: https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square
     :alt: All contributors
@@ -10,16 +9,16 @@ python app template
     :target: LICENSE
     :alt: License: BSD 2-Clause
 
-.. image:: https://badge.fury.io/py/template.svg
-    :target: https://badge.fury.io/py/template
+.. image:: https://badge.fury.io/py/sphinx-icon.svg
+    :target: https://badge.fury.io/py/sphinx-icon
     :alt: PyPI version
     
-.. image:: https://img.shields.io/pypi/dm/template?color=307CC2&logo=python&logoColor=gainsboro  
-    :target: https://pypi.org/project/template/
+.. image:: https://img.shields.io/pypi/dm/sphinx-icon?color=307CC2&logo=python&logoColor=gainsboro  
+    :target: https://pypi.org/project/sphinx-icon/
     :alt: PyPI - Downloads
     
-.. image:: https://img.shields.io/pypi/pyversions/template
-   :target: https://pypi.org/project/template/
+.. image:: https://img.shields.io/pypi/pyversions/sphinx-icon
+   :target: https://pypi.org/project/shinx-icon/
    :alt: supported Python version
 
 .. image:: https://github.com/12rambau/sphinx-icon/actions/workflows/unit.yml/badge.svg
@@ -42,34 +41,16 @@ python app template
    :target: https://conventionalcommits.org
    :alt: conventional commit
 
-
-
-
 Overview
 --------
 
-The skeleton of a python lib embeding what I like
+`sphinx-icon` is a Sphinx extention to allow developers to use the `icon` role to display inlined icons. 
+The extention currently supports only Fontawsome 5.15.4 icons.
+Please go to our doc if you want to know more.
 
-- an AUTHORS.rst page with the badge in the README
-- some tests
-- pre-commit-configs
-- docs 
-- all the contributors section 
-- issue template 
-- PR template 
-- test workflow for unit testing and release
+Contribute
+----------
 
-To use 
-------
-
-template the repository. 
-
-tweek some parameters:
-
-- change project name in the doc section 
-- set upt the github secretes for Pipy release 
-- change the src folder name 
-- update the test
-- update the readthedoc parameters and create a readthedoc page
-- update badges that doesn't work (pipy, rdt)
-- setup codecov hook
+If you want to contribute you can fork the project in you own repository and then use it. 
+If you consider working with us, please follow the `contributing guidelines <CONTRIBUTING.rst>`__. 
+Meet our `contributor <AUTHORS.rst>`__. 

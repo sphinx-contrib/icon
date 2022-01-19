@@ -21,7 +21,7 @@ LONG_DESCRIPTION = open("README.rst").read()
 
 setup_params = {
     # metadata
-    "name": "sphinxcontrib-icon",
+    "name": "sphinx-icon",
     "version": version,
     "license": "BSD 2-Clause",
     "description": DESCRIPTION,
@@ -36,7 +36,7 @@ setup_params = {
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
         "Topic :: Software Development :: Build Tools",
-        "License :: OSI Approved :: BSD-2-Clause",
+        "License :: OSI Approved :: BSD License",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",

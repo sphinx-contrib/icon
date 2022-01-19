@@ -1,19 +1,42 @@
 # -*- coding: utf-8 -*-
-from yaml import safe_load
 from pathlib import Path
 import re
 
 from docutils import nodes
+from .font_handler import Fontawesome
 
-VAR_DIR = Path(__file__).parents[2] / "var"
-METADATA_FILE = VAR_DIR / "desktop/metadata/icons.yml"
-CSS_FILE = VAR_DIR / "web/css/all.min.css"
-JS_FILE = VAR_DIR / "web/js/all.min.css"
-OTF_FOLDER = VAR_DIR / "desktop/otf"
+# -- global variables ----------------------------------------------------------
+font_handler = None
+# ------------------------------------------------------------------------------
 
 
 class icon(nodes.General, nodes.Element):
     pass
+
+
+def download_font_assets(app):
+
+    # start the font_handler
+    font_handler = Fontawesome()
+
+    # create a _font folder
+    output_dir = Path(app.outdir)
+    font_dir = output_dir / "_font"
+    font_dir.mkdir(exist_ok=True)
+
+    # guess what need to be installed
+    # based on the compiler
+    if app.builder.format == "html":
+
+        font_handler.download_asset("html", font_dir)
+        app.add_css_file(font_handler.get_css())
+        app.add_js_file(font_handler.get_js())
+
+    elif app.builder.format == "latex":
+
+        font_handler.download_asset("latex", font_dir)
+
+    return
 
 
 def get_glyph(text):
@@ -25,15 +48,11 @@ def get_glyph(text):
     :param text: The text to transform (e.g. "fa fa-folder")
     """
 
-    # Read YAML file
-    with METADATA_FILE.open("r") as f:
-        fontawesome_icons = safe_load(f)
-
     # split the icon name to find the name inside
     m = re.match(r"^(fab|far|fa|fas) fa-([\w-]+)$", text)
     if not m:
         raise ValueError(f'invalid icon name: "{text}"')
-    if not m.group(2) in fontawesome_icons:
+    if not m.group(2) in font_handler.icons_metadata:
         raise ValueError(f'icon "{m.group(2)}" is not part of fontawesome 5.15.4')
 
     # return (font, glyph)

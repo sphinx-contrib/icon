@@ -11,11 +11,8 @@ def setup(app):
     :param app: Sphinx application context.
     """
 
-    # add the css files
-    app.add_css_file(str(icon.CSS_FILE))
-
-    # add the js files
-    app.add_js_file(str(icon.JS_FILE))
+    # download the font to the output folder
+    app.connect("builder-inited", icon.download_font_assets)
 
     # create the node
     app.add_node(icon.icon, **icon._NODE_VISITORS)

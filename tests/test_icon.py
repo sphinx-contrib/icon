@@ -1,11 +1,16 @@
 from docutils import nodes
+from pathlib import Path
 import pytest
 
 import sphinxcontrib.icon.icon as icon
+from sphinxcontrib.icon.font_handler import Fontawesome
 
 
 class TestIcon:
-    def test_get_glyph(self, icons):
+    def test_get_glyph(self, icons, data_dir):
+
+        icon.font_handler = Fontawesome()
+        icon.font_handler.download_asset("html", data_dir)
 
         # expected results
         expected_results = {
@@ -32,7 +37,10 @@ class TestIcon:
 
         assert str(e.value) == 'icon "toto" is not part of fontawesome 5.15.4'
 
-    def test_visit_html(self, app, icons):
+    def test_visit_html(self, app, icons, data_dir):
+
+        icon.font_handler = Fontawesome()
+        icon.font_handler.download_asset("html", data_dir)
 
         for i in icons["true"].values():
             icon.visit_icon_node_html(app, i)
@@ -44,7 +52,10 @@ class TestIcon:
 
         return
 
-    def test_visit_latex(self, app, icons):
+    def test_visit_latex(self, app, icons, data_dir):
+
+        icon.font_handler = Fontawesome()
+        icon.font_handler.download_asset("latex", data_dir)
 
         # expecteed results for true icons
         expected_results = {
@@ -120,3 +131,10 @@ class TestIcon:
                 self.elements = {"preamble": ""}
 
         return App()
+
+    @pytest.fixture
+    def data_dir(self):
+
+        data_dir = Path(__file__).parent / "data"
+
+        return data_dir

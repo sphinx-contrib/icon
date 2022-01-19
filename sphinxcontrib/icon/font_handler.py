@@ -43,12 +43,13 @@ class Fontawesome:
             dts_file = dst_dir / src_name
             dts_file.write_bytes(data)
 
-        # set the fontawsome metadata variable
-        # it should be read only once
-        with (self.dir / "metadata/icons.yml").open("r") as f:
-            self.icons_metadata = safe_load(f)
+    def get_metadata(self):
 
-        return
+        if self.icons_metadata is None:
+            with (self.dir / "metadata/icons.yml").open("r") as f:
+                self.icons_metadata = safe_load(f)
+
+        return self.icons_metadata
 
     def get_css(self):
 

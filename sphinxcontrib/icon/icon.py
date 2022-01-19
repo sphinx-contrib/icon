@@ -52,8 +52,8 @@ def get_glyph(text):
     m = re.match(r"^(fab|far|fa|fas) fa-([\w-]+)$", text)
     if not m:
         raise ValueError(f'invalid icon name: "{text}"')
-    if not m.group(2) in font_handler.icons_metadata:
-        raise ValueError(f'icon "{m.group(2)}" is not part of fontawesome 5.15.4')
+    # if not m.group(2) in font_handler.get_metadata():
+    #    raise ValueError(f'icon "{m.group(2)}" is not part of fontawesome 5.15.4')
 
     # return (font, glyph)
     return m.group(1), m.group(2)

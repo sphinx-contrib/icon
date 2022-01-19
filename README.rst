@@ -22,16 +22,16 @@ python app template
    :target: https://pypi.org/project/template/
    :alt: supported Python version
 
-.. image:: https://github.com/12rambau/template/actions/workflows/unit.yml/badge.svg
-    :target: https://github.com/12rambau/template/actions/workflows/unit.yml
+.. image:: https://github.com/12rambau/sphinx-icon/actions/workflows/unit.yml/badge.svg
+    :target: https://github.com/12rambau/sphinx-icon/actions/workflows/unit.yml
     :alt: build
 
-.. image:: https://codecov.io/gh/12rambau/template/branch/master/graph/badge.svg?token=YZ3mVcuaCq
-    :target: https://codecov.io/gh/12rambau/template
+.. image:: https://codecov.io/gh/12rambau/sphinx-icon/branch/main/graph/badge.svg?token=NSdnY0hJpF
+    :target: https://codecov.io/gh/12rambau/sphinx-icon
     :alt: Test Coverage
     
-.. image:: https://readthedocs.org/projects/template/badge/?version=latest
-    :target: https://template.readthedocs.io/en/latest/?badge=latest
+.. image:: https://readthedocs.org/projects/sphinx-icon/badge/?version=latest
+    :target: https://sphinx-icon.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
     
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg

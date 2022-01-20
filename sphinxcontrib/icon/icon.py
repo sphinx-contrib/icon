@@ -21,8 +21,8 @@ def download_font_assets(app):
 
     # create a _font folder
     output_dir = Path(app.outdir)
-    font_dir = output_dir / "_font"
-    font_dir.mkdir(exist_ok=True)
+    font_dir = output_dir / "_static/font"
+    font_dir.mkdir(exist_ok=True, parents=True)
 
     # guess what need to be installed
     # based on the compiler

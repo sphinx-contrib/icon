@@ -18,7 +18,7 @@ Sphinx-Icon
     :alt: PyPI - Downloads
     
 .. image:: https://img.shields.io/pypi/pyversions/sphinx-icon
-   :target: https://pypi.org/project/shinx-icon/
+   :target: https://pypi.org/project/sphinx-icon/
    :alt: supported Python version
 
 .. image:: https://github.com/12rambau/sphinx-icon/actions/workflows/unit.yml/badge.svg

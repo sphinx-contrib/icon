@@ -5,6 +5,10 @@
 Installation
 ============
 
+test image : 
+
+.. image:: https://avatars.githubusercontent.com/u/9928167?s=200&v=4
+
 first install the `pipy package <https://pypi.org/project/sphinx-icon/>`__ by runinng:
 
 .. code-block:: console

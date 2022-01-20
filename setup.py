@@ -58,7 +58,6 @@ setup_params = {
             "sphinxcontrib-spelling",
             "sphinx-copybutton",
             "furo",
-            "sphinxcontrib-svg2pdfconverter",
         ],
     },
 }

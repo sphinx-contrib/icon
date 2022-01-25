@@ -13,7 +13,7 @@ class DevelopCmd(develop):
 
 
 # set the version number
-version = "0.1.1"
+version = "0.1.2"
 
 # set some text as CONST variables for readability
 DESCRIPTION = "A sphinx custom role to embed inline fontawesome incon in the latex and html outputs"

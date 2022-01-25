@@ -1,3 +1,9 @@
+## v0.1.2 (2022-01-25)
+
+### Fix
+
+- make sur the appropiate libs are installed on build
+
 ## v0.1.1 (2022-01-25)
 
 ### Fix

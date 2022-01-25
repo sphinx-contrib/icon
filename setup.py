@@ -47,14 +47,13 @@ setup_params = {
     "packages": setuptools.find_packages(),
     "include_package_data": True,
     "namespace_packages": ["sphinxcontrib"],
-    "install_requires": ["Deprecated", "docutils", "pyyaml"],
+    "install_requires": ["Deprecated", "docutils", "pyyaml", "Sphinx"],
     "cmdclass": {"develop": DevelopCmd},
     # extras_require
     "extras_require": {
         "dev": ["pre-commit", "commitizen"],
         "test": ["coverage", "pytest"],
         "doc": [
-            "Sphinx",
             "sphinxcontrib-spelling",
             "sphinx-copybutton",
             "furo",

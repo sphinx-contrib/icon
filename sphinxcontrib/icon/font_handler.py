@@ -7,6 +7,9 @@ from yaml import safe_load
 
 
 class Fontawesome:
+    """
+    Class wrapper to deal with fontawesome based icons
+    """
 
     FONT_VERSION = "5.15.4"
     ASSET = "https://github.com/FortAwesome/Font-Awesome/releases/download/{version}/fontawesome-free-{version}-{type}.zip"
@@ -29,7 +32,7 @@ class Fontawesome:
         zip_file = ZipFile(BytesIO(resp.read()))
         for file in zip_file.namelist():
 
-            if Path(file).suffix == "":
+            if not Path(file).suffix in [".css", ".js"]:
                 continue
 
             # get the data
@@ -44,6 +47,7 @@ class Fontawesome:
             dts_file.write_bytes(data)
 
     def get_metadata(self):
+        """read the yaml file to create a datatable of existing icons. Return the stored table if existing"""
 
         if self.icons_metadata is None:
             with (self.dir / "metadata/icons.yml").open("r") as f:
@@ -52,9 +56,11 @@ class Fontawesome:
         return self.icons_metadata
 
     def get_css(self):
+        """returns the complete path to the css file from _static folder"""
 
-        return "./_font/fontawsome/css/all.min.css"
+        return "../_font/fontawesome/css/all.min.css"
 
     def get_js(self):
+        """returns the complete path to the js file from _static folder"""
 
-        return "./_font/fontawesome/js/all.min.js"
+        return "../_font/fontawesome/js/all.min.js"

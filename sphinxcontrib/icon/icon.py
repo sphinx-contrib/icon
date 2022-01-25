@@ -4,9 +4,11 @@ import re
 
 from docutils import nodes
 from .font_handler import Fontawesome
+from sphinx.util import logging
 
 # -- global variables ----------------------------------------------------------
 font_handler = None
+logger = logging.getLogger(__name__)
 # ------------------------------------------------------------------------------
 
 
@@ -71,7 +73,7 @@ def visit_icon_node_html(self, node):
     try:
         font, glyph = get_glyph(node["icon"])
     except ValueError as e:
-        self.builder.warn(str(e))
+        logger.warning(str(e), location=node)
         raise nodes.SkipNode
 
     self.body.append(f'<i class="{font} fa-{glyph}"></i>')
@@ -85,7 +87,7 @@ def visit_icon_node_latex(self, node):
     try:
         font, glyph = get_glyph(node["icon"])
     except ValueError as e:
-        self.builder.warn(str(e))
+        logger.warning(str(e), location=node)
         raise nodes.SkipNode
 
     # detect the font
@@ -112,7 +114,7 @@ def visit_icon_node_latex(self, node):
 def visit_icon_node_unsuported(self, node):
     """raise error when the requested output is not supported"""
 
-    self.builder.warn("Unsupported output format (node skipped)")
+    logger.warning("Unsupported output format (node skipped)")
     raise nodes.SkipNode
 
 

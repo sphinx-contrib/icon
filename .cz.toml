@@ -1,6 +1,6 @@
-[commitizen]
+[tool.commitizen]
 changelog_file = "CHANGELOG.md"
 tag_format = "v$major.$minor.$patch$prerelease"
 update_changelog_on_bump = true
-version = "0.0.0"
-version_files = ["setup.py:version", "src/__init__.py:__version__"]
+version = "0.1.0"
+version_files = ["setup.py:version", "sphinxcontrib/icon/__init__.py:__version__"]

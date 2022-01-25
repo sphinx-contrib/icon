@@ -23,6 +23,7 @@ def download_font_assets(app):
     output_dir = Path(app.outdir)
     font_dir = output_dir / "_font"
     font_dir.mkdir(exist_ok=True)
+    app.config.html_static_path.append(str(font_dir))
 
     # guess what need to be installed
     # based on the compiler

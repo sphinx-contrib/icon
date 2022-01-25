@@ -17,6 +17,11 @@ class icon(nodes.General, nodes.Element):
 
 
 def download_font_assets(app):
+    """
+    Download the fonts from the web assets and prepare them to be used in the documentation output directory
+
+    :param app: the current Sphinx application
+    """
 
     # start the font_handler
     font_handler = Fontawesome()
@@ -63,12 +68,17 @@ def get_glyph(text):
 
 
 def depart_icon_node(self, node):
-    """Empty depart function, everything is handled in visit"""
+    """
+    Empty depart function, everything is handled in visit
+    """
+
     pass
 
 
 def visit_icon_node_html(self, node):
-    """create the html output"""
+    """
+    create the html output
+    """
 
     try:
         font, glyph = get_glyph(node["icon"])

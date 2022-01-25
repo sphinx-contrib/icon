@@ -19,6 +19,12 @@ class Fontawesome:
     dir = None
 
     def download_asset(self, format, path):
+        """
+        Download the font assets from fontawsome distribution to the set path
+
+        :param format: format of the output (html or latex)
+        :param path: the destination directory (folder need to exist)
+        """
 
         type = self.TYPES[format]
         asset = self.ASSET.format(version=self.FONT_VERSION, type=type)
@@ -47,7 +53,9 @@ class Fontawesome:
             dts_file.write_bytes(data)
 
     def get_metadata(self):
-        """read the yaml file to create a datatable of existing icons. Return the stored table if existing"""
+        """
+        read the yaml file to create a datatable of existing icons. Return the stored table if existing
+        """
 
         if self.icons_metadata is None:
             with (self.dir / "metadata/icons.yml").open("r") as f:
@@ -56,11 +64,15 @@ class Fontawesome:
         return self.icons_metadata
 
     def get_css(self):
-        """returns the complete path to the css file from _static folder"""
+        """
+        returns the complete path to the css file from _static folder
+        """
 
         return "../_font/fontawesome/css/all.min.css"
 
     def get_js(self):
-        """returns the complete path to the js file from _static folder"""
+        """
+        returns the complete path to the js file from _static folder
+        """
 
         return "../_font/fontawesome/js/all.min.js"

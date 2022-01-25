@@ -53,8 +53,8 @@ class Fontawesome:
 
     def get_css(self):
 
-        return str(self.dir / "css/all.min.css")
+        return "./_font/fontawsome/css/all.min.css"
 
     def get_js(self):
 
-        return str(self.dir / "js/all.min.js")
+        return "./_font/fontawesome/js/all.min.js"

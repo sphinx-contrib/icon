@@ -1,4 +1,4 @@
-Sphinx-Icon
+sphinx-icon
 ===========
 
 Overview

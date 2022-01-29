@@ -21,12 +21,12 @@ Sphinx-Icon
    :target: https://pypi.org/project/sphinx-icon/
    :alt: supported Python version
 
-.. image:: https://github.com/12rambau/sphinx-icon/actions/workflows/unit.yml/badge.svg
-    :target: https://github.com/12rambau/sphinx-icon/actions/workflows/unit.yml
+.. image:: https://github.com/sphinx-contrib/icon/actions/workflows/unit.yml/badge.svg
+    :target: https://github.com/sphinx-contrib/icon/actions/workflows/unit.yml
     :alt: build
 
-.. image:: https://codecov.io/gh/12rambau/sphinx-icon/branch/main/graph/badge.svg?token=NSdnY0hJpF
-    :target: https://codecov.io/gh/12rambau/sphinx-icon
+.. image:: https://codecov.io/gh/sphinx-contrib/icon/branch/main/graph/badge.svg?token=NSdnY0hJpF
+    :target: https://codecov.io/gh/sphinx-contrib/icon
     :alt: Test Coverage
     
 .. image:: https://readthedocs.org/projects/sphinx-icon/badge/?version=latest
@@ -52,5 +52,5 @@ Contribute
 ----------
 
 If you want to contribute you can fork the project in you own repository and then use it. 
-If you consider working with us, please follow the `contributing guidelines <https://github.com/12rambau/sphinx-icon/blob/main/CONTRIBUTING.rst>`__. 
-Meet our `contributor <https://github.com/12rambau/sphinx-icon/blob/main/AUTHORS.rst>`__. 
+If you consider working with us, please follow the `contributing guidelines <https://github.com/sphinx-contrib/icon/blob/main/CONTRIBUTING.rst>`__. 
+Meet our `contributor <https://github.com/sphinx-contrib/icon/blob/main/AUTHORS.rst>`__. 

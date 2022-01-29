@@ -29,9 +29,9 @@ setup_params = {
     "long_description_content_type": "text/x-rst",
     "author": "Pierrick Rambaud",
     "author_email": "pierrick.rambaud49@gmail.com",
-    "url": "https://github.com/12rambau/sphinx-icon",
-    "download_url": f"https://github.com/12rambau/sepal_ui/archive/v{version}.tar.gz",
-    "keywords": ["skeleton", "Python"],
+    "url": "https://github.com/sphinx-contrib/icon",
+    "download_url": f"https://github.com/sphinx-contrib/icon/archive/v{version}.tar.gz",
+    "keywords": ["python", "fontawesome", "sphinx", "extention"],
     "classifiers": [
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",

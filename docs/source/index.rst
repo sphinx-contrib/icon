@@ -12,8 +12,8 @@ Contribute
 ----------
 
 If you want to contribute you can fork the project in you own repository and then use it. 
-If you consider working with us, please follow the `contributing guidelines <https://github.com/12rambau/sphinx-icon/blob/main/CONTRIBUTING.rst>`__. 
-Meet our `contributor <https://github.com/12rambau/sphinx-icon/blob/main/AUTHORS.rst>`__. 
+If you consider working with us, please follow the `contributing guidelines <https://github.com/sphinx-contrib/icon/blob/main/CONTRIBUTING.rst>`__. 
+Meet our `contributor <https://github.com/sphinx-contrib/icon/blob/main/AUTHORS.rst>`__. 
 
 Installation
 ============

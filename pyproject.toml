@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=61.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sphinx-icon"
+version = "0.1.2"
+description = "A sphinx custom role to embed inline fontawesome incon in the latex and html outputs"
+requires-python = ">=3.6.9"
+dependencies = ["sphinx"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Sphinx :: Extension",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Documentation",
+    "Topic :: Utilities",
+]
+keywords = ["python", "fontawesome", "sphinx", "extention"]
+
+[[project.authors]]
+name = "Pierrick Rambaud"
+email = "pierrick.rambaud49@gmail.com"
+
+[project.license]
+text = "BSD 2-Clause"
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.urls]
+repository = "https://github.com/sphinx-contrib/icon"
+
+[project.optional-dependencies]
+dev = ["nox", "pre-commit", "mypy"]
+test = ["pytest", "beautifulsoup4", "pytest-regressions", "pytest-cov"]
+doc = ["pydata-sphinx-theme==0.13.0rc3", "sphinx-design", "sphinx-copybutton"]
+
+[tool.setuptools]
+include-package-data = false
+license-files = ["LICENSE"]
+packages = ["sphinxcontrib"]
+
+[tool.ruff]
+ignore-init-module-imports = true
+fix = true
+select = ["E", "F", "W", "I", "D", "RUF"]
+ignore = ["E501"]  # line too long | Black take care of it
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.per-file-ignores]
+"setup.py" = ["D100"] # nothing to see there
+
+[tool.coverage.run]
+source = ["sphinxcontrib.icon"]
+
+[tool.mypy]
+scripts_are_modules = true
+ignore_missing_imports = true
+install_types = true
+non_interactive = true
+warn_redundant_casts = true
+
+[tool.commitizen]
+changelog_file = "CHANGELOG.md"
+tag_format = "v$major.$minor.$patch$prerelease"
+update_changelog_on_bump = true
+version = "0.1.2"
+version_files = [
+    "pyproject.toml:version",
+    "sphinxcontrib/icon/__init__.py:__version__"
+]

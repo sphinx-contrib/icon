@@ -7,7 +7,7 @@ name = "sphinx-icon"
 version = "0.1.2"
 description = "A sphinx custom role to embed inline fontawesome incon in the latex and html outputs"
 requires-python = ">=3.6.9"
-dependencies = ["sphinx"]
+dependencies = ["sphinx", "pyyaml"]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Framework :: Sphinx :: Extension",
@@ -48,7 +48,7 @@ doc = ["pydata-sphinx-theme==0.13.0rc3", "sphinx-design", "sphinx-copybutton"]
 [tool.setuptools]
 include-package-data = false
 license-files = ["LICENSE"]
-packages = ["sphinxcontrib"]
+packages = ["sphinxcontrib.icon"]
 
 [tool.ruff]
 ignore-init-module-imports = true

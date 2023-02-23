@@ -1,93 +1,95 @@
 Contribute
 ==========
 
-After forking the projet, run the following command to start developing: 
+Thank you for your help improving **sphinx-icon**!
+
+**sphinx-icon** uses `nox <https://nox.thea.codes/en/stable/>`__ to automate several development-related tasks.
+Currently, the project uses four automation processes (called sessions) in ``noxfile.py``:
+
+-   ``mypy``: to perform a mypy check on the lib;
+-   ``test``: to run the test with pytest;
+-   ``docs``: to build the documentation in the ``build`` folder;
+-   ``lint``: to run the pre-commits in an isolated environment
+
+Every nox session is run in its own virtual environment, and the dependencies are installed automatically.
+
+To run a specific nox automation process, use the following command:
 
 .. code-block:: console
 
-    $ git clone https://github.com/<github id>/<python_lib>.git
-    $ cd <python_lib> 
-    $ pip install -e .[dev, test, doc]
-    
-.. danger:: 
+   nox -s {{session name}}
 
-    :code:`pre-commits` are installed in edit mode. Every commit that does not respect the conventional commits framework will be refused. 
-    you can read this `documentation <https://www.conventionalcommits.org/en/v1.0.0/>`__ to learn more about them and we highly recommend to use the :code:`commitizen` lib to create your commits: `<https://commitizen-tools.github.io/commitizen>`__.
+For example: ``nox -s test`` or ``nox -s docs``.
 
-Develop within the project
---------------------------
+Workflow for contributing changes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Since 2020-08-14, this repository follows these `development guidelines <https://nvie.com/posts/a-successful-git-branching-model/>`__.
+We follow a typical GitHub workflow of:
 
-.. tip::
+-   Create a personal fork of this repo
+-   Create a branch
+-   Open a pull request
+-   Fix findings of various linters and checks
+-   Work through code review
 
-    Please consider using the :code:`--no-ff` option when merging to keep the repository consistent with PR. 
+See the following sections for more details.
 
-In the project to adapt to :code:`JupyterLab` IntelSense, we decided to explicitly write the `return` statement for every function.
+Clone the repository
+^^^^^^^^^^^^^^^^^^^^
 
-We need to provide the users with version informations. When a new function or class is created please use the `Deprecated <https://pypi.org/project/Deprecated/>`__ lib to specify that the feature is new in the documentation. 
+First off, you'll need your own copy of **sphinx-icon** codebase. You can clone it for local development like so:
 
-.. code-block:: python
+Fork the repository so you have your own copy on GitHub. See the `GitHub forking guide for more information <https://docs.github.com/en/get-started/quickstart/fork-a-repo>`__.
 
-    from deprecated.sphinx import deprecated
-    from deprecated.sphinx import versionadded
-    from deprecated.sphinx import versionchanged
-
-
-    @versionadded(version='1.0', reason="This function is new")
-    def function_one():
-        '''This is the function one'''
-
-
-    @versionchanged(version='1.0', reason="This function is modified")
-    def function_two():
-        '''This is the function two'''
-
-
-    @deprecated(version='1.0', reason="This function will be removed soon")
-    def function_three():
-        '''This is the function three'''
-    
-How to commit
--------------
-
-In this repository we use the Conventional Commits specification.
-The Conventional Commits specification is a lightweight convention on top of commit messages. It provides an easy set of rules for creating an explicit commit history; which makes it easier to write automated tools on top of. This convention dovetails with SemVer, by describing the features, fixes, and breaking changes made in commit messages.
-
-You can learn more about Conventional Commits following this `link <https://www.conventionalcommits.org/en/v1.0.0/>`__
-
-What can I push and where
--------------------------
-
-Our branching system embed some rules to avoid crash of the production environment. If you want to contribute to this framework, here are some basic rules that we try our best to follow :
-
--   the modification you offer is solving a critical bug in prod : **PR in a patch branch**
--   the modification you propose solve the following issues : test, documentation, typo, quality, refactoring, translation **PR in main**
--   the modification you propose is a new feature : open an issue to discuss with the maintainers and then **PR from a named branch**
-
-the maintainers will try their best to use PR for new features, to help the community follow the development, for other modification they will simply push to the appropriate branch
-
-Create a new release
---------------------
-
-.. danger:: 
-
-    for maintainers only 
-    
- .. warning::
- 
-     You need to use the :code:`commitizen` lib to create your release: `<https://commitizen-tools.github.io/commitizen>`__
-    
-In the files change the version number by runnning commitizen `bump`: 
+Then, clone the repository locally so that you have a local copy to work on:
 
 .. code-block:: console
 
-    cz bump
+   git clone https://github.com/{{ YOUR USERNAME }}/icon
+   cd icon
 
-It should modify for you the version number in :code:`sepal_ui/__init__.py`, :code:`setup.py`, and :code:`.cz.yaml` according to sementic versionning thanks to the conventional commit that we use in the lib. 
+Then install the development version of the extension:
 
-It will also update the :code:`CHANGELOG.md` file with the latest commits, sorted by categories.
+.. code-block:: console
 
-Then you can now create a new tag with your new version number. use the same convention as the one found in :code:`.cz.yaml`: :code:`v$minor.$major.$patch$prerelease`. 
-    
-The CI should take everything in control from here and execute the :code:`Upload Python Package` GitHub Action that is publishing the new version on `PyPi <#>`_.
+   pip install -e .[dev]
+
+This will install the **sphinx-icon** library, together with two additional tools:
+-   `pre-commit <https://pre-commit.com>`__ for automatically enforcing code standards and quality checks before commits.
+-   `nox <https://nox.thea.codes/en/stable/>`__, for automating common development tasks.
+
+Lastly, activate the pre-commit hooks by running:
+
+.. code-block:: console
+
+    pre-commit install
+
+This will install the necessary dependencies to run pre-commit every time you make a commit with Git.
+
+Contribute to the codebase
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Any larger updates to the codebase should include tests and documentation. The tests are located in the ``tests`` folder, and the documentation is located in the ``docs`` folder.
+
+To run the tests locally, use the following command:
+
+.. code-block:: console
+
+    nox -s test
+
+See :ref:`below <contributing-docs>` for more information on how to update the documentation.
+
+.. _contributing-docs:
+
+Contribute to the docs
+^^^^^^^^^^^^^^^^^^^^^^
+
+The documentation is built using `Sphinx <https://www.sphinx-doc.org/en/master/>`__ and deployed to `Read the Docs <https://readthedocs.org/>`__.
+
+To build the documentation locally, use the following command:
+
+.. code-block:: console
+
+    nox -s docs
+
+For each pull request, the documentation is built and deployed to make it easier to review the changes in the PR. To access the docs build from a PR, click on the "Read the Docs" preview in the CI/CD jobs.

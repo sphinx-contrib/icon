@@ -14,7 +14,7 @@ __email__ = "pierrick.rambaud49@gmail.com"
 def setup(app: Sphinx) -> Dict[str, Any]:
     """Add icon node to the sphinx builder."""
     app.connect("builder-inited", icon.download_font_assets)
-    app.add_node(icon.icon_node, **icon._NODE_VISITORS)
+    app.add_node(icon.icon_node, **icon._NODE_VISITORS)  # type: ignore
     app.add_role("icon", icon.Icon())
 
     return {

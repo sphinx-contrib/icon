@@ -17,9 +17,6 @@ class Fontawesome:
     ASSET = "https://github.com/FortAwesome/Font-Awesome/releases/download/{version}/fontawesome-free-{version}-{type}.zip"
     TYPES = {"html": "web", "latex": "desktop"}
 
-    icons_metadata = None
-    dir = None
-
     def download_asset(self, format: str, path: Path) -> None:
         """Download the font assets from fontawsome distribution to the set path.
 
@@ -59,11 +56,11 @@ class Fontawesome:
         Returns:
             the stored table if existing
         """
-        if self.icons_metadata is None:
-            file = self.dir / "metadata/icons.yml"
-            self.icons_metadata = safe_load(file.read_text())
+        if self.icons_metadata is None:  # type: ignore
+            file = self.dir / "metadata" / "icons.yml"  # type: ignore
+            self.icons_metadata = safe_load(file.read_text())  # type: ignore
 
-        return self.icons_metadata
+        return self.icons_metadata  # type: ignore
 
     def get_css(self) -> str:
         """Returns the complete path to the css file from _static folder."""

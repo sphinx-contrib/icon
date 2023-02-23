@@ -106,7 +106,7 @@ def visit_icon_node_latex(self, node: icon_node) -> None:
         raise nodes.SkipNode
 
     # detect the font
-    font_list = {"fa": None, "far": "regular", "fas": "solid", "fab": "brand"}
+    font_list = {"fa": "", "far": "regular", "fas": "solid", "fab": "brand"}
     font = font_list[font]
 
     # install fontawesome 5 package

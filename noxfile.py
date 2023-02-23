@@ -19,3 +19,11 @@ def lint(session):
     """Apply the pre-commits."""
     session.install("pre-commit")
     session.run("pre-commit", "run", "--a", *session.posargs)
+
+
+@nox.session(reuse_venv=True)
+def mypy(session):
+    """Run a mypy check of the lib."""
+    session.install(".[dev]")
+    test_files = session.posargs or ["sphinxcontrib"]
+    session.run("mypy", *test_files)

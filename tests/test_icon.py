@@ -1,14 +1,19 @@
-from docutils import nodes
+"""Test the icon role."""
+
 from pathlib import Path
+
 import pytest
+from docutils import nodes
 
 import sphinxcontrib.icon.icon as icon
 from sphinxcontrib.icon.font_handler import Fontawesome
 
 
 class TestIcon:
-    def test_get_glyph(self, icons, data_dir):
+    """Dummy."""
 
+    def test_get_glyph(self, icons, data_dir):
+        """Dummy."""
         icon.font_handler = Fontawesome()
         icon.font_handler.download_asset("html", data_dir)
 
@@ -38,7 +43,7 @@ class TestIcon:
         # assert str(e.value) == 'icon "toto" is not part of fontawesome 5.15.4'
 
     def test_visit_html(self, app, icons, data_dir):
-
+        """Dummy."""
         icon.font_handler = Fontawesome()
         icon.font_handler.download_asset("html", data_dir)
 
@@ -53,7 +58,7 @@ class TestIcon:
         return
 
     def test_visit_latex(self, app, icons, data_dir):
-
+        """Dummy."""
         icon.font_handler = Fontawesome()
         icon.font_handler.download_asset("latex", data_dir)
 
@@ -76,7 +81,7 @@ class TestIcon:
         return
 
     def test_visit_unsuported(self, app, icons):
-
+        """Dummy."""
         # check that the appropiate error is raised
         with pytest.raises(nodes.SkipNode):
             icon.visit_icon_node_unsuported(app, icons["true"]["folder"])
@@ -84,7 +89,7 @@ class TestIcon:
         return
 
     def test_icon_role(self, icons):
-
+        """Dummy."""
         # check that the node has the appropirate class
         _ = None
         node, messages = icon.icon_role(_, _, icons["true"]["folder"], _, _)
@@ -96,6 +101,7 @@ class TestIcon:
 
     @pytest.fixture
     def icons(self):
+        """Dummy."""
         return {
             "true": {
                 "folder": {"icon": "fa fa-folder"},
@@ -112,7 +118,7 @@ class TestIcon:
 
     @pytest.fixture
     def app(self):
-        """mock the app builder for warning in fonctions"""
+        """mock the app builder for warning in fonctions."""
 
         class Builder:
             def warn(self, str):
@@ -134,7 +140,7 @@ class TestIcon:
 
     @pytest.fixture
     def data_dir(self):
-
+        """Dummy."""
         data_dir = Path(__file__).parent / "data"
 
         return data_dir

@@ -1,28 +1,40 @@
-# -*- coding: utf-8 -*-
-from pathlib import Path
+"""The icon role definition."""
+
 import re
+from pathlib import Path
+from typing import List, Tuple
 
 from docutils import nodes
-from .font_handler import Fontawesome
+from sphinx.application import Sphinx
 from sphinx.util import logging
+from sphinx.util.docutils import SphinxRole
 
-# -- global variables ----------------------------------------------------------
+from .font_handler import Fontawesome
+
 font_handler = None
 logger = logging.getLogger(__name__)
-# ------------------------------------------------------------------------------
 
 
-class icon(nodes.General, nodes.Element):
+class icon_node(nodes.General, nodes.Element):
+    """the icon node."""
+
     pass
 
 
-def download_font_assets(app):
-    """
-    Download the fonts from the web assets and prepare them to be used in the documentation output directory
+class Icon(SphinxRole):
+    """The icon sphinxrole interpreter."""
 
-    :param app: the current Sphinx application
-    """
+    def run(self) -> Tuple[List[nodes.Node], List[str]]:
+        """Setup the role in the builder context."""
+        return [icon_node(icon=self.text)], []
 
+
+def download_font_assets(app: Sphinx) -> None:
+    """Download the fonts from the web assets and prepare them to be used in the documentation output directory.
+
+    Args:
+        app: the current Sphinx application
+    """
     # start the font_handler
     font_handler = Fontawesome()
 
@@ -32,8 +44,7 @@ def download_font_assets(app):
     font_dir.mkdir(exist_ok=True)
     app.config.html_static_path.append(str(font_dir))
 
-    # guess what need to be installed
-    # based on the compiler
+    # guess what need to be installed based on the compiler
     if app.builder.format == "html":
 
         font_handler.download_asset("html", font_dir)
@@ -47,15 +58,15 @@ def download_font_assets(app):
     return
 
 
-def get_glyph(text):
+def get_glyph(text) -> Tuple[str, str]:
+    """Get the glyph from text.
+
+    Args:
+        text: The text to transform (e.g. "fa fa-folder")
+
+    Returns:
+        (glyph, font): from the provided text. raise an error if one of them does not exist
     """
-    get the glyph from text
-
-    Return a tuple of (glyph, font) from the provided text. raise an error if one of them does not exist
-
-    :param text: The text to transform (e.g. "fa fa-folder")
-    """
-
     # split the icon name to find the name inside
     m = re.match(r"^(fab|far|fa|fas) fa-([\w-]+)$", text)
     if not m:
@@ -67,33 +78,27 @@ def get_glyph(text):
     return m.group(1), m.group(2)
 
 
-def depart_icon_node(self, node):
-    """
-    Empty depart function, everything is handled in visit
-    """
-
+def depart_icon_node_html(self, node: icon_node) -> None:
+    """Depart the html node."""
+    self.body.append("</i>")
     pass
 
 
-def visit_icon_node_html(self, node):
-    """
-    create the html output
-    """
-
+def visit_icon_node_html(self, node: icon_node) -> None:
+    """Visit the html output."""
     try:
         font, glyph = get_glyph(node["icon"])
     except ValueError as e:
         logger.warning(str(e), location=node)
         raise nodes.SkipNode
 
-    self.body.append(f'<i class="{font} fa-{glyph}"></i>')
+    self.body.append(f'<i class="{font} fa-{glyph}">')
 
     return
 
 
-def visit_icon_node_latex(self, node):
-    """create the latex output"""
-
+def visit_icon_node_latex(self, node: icon_node) -> None:
+    """Visit the latex output."""
     try:
         font, glyph = get_glyph(node["icon"])
     except ValueError as e:
@@ -121,40 +126,16 @@ def visit_icon_node_latex(self, node):
     return
 
 
-def visit_icon_node_unsuported(self, node):
-    """raise error when the requested output is not supported"""
-
+def visit_icon_node_unsuported(self, node: icon_node) -> None:
+    """Raise error when the requested output is not supported."""
     logger.warning("Unsupported output format (node skipped)")
     raise nodes.SkipNode
 
 
 _NODE_VISITORS = {
-    "html": (visit_icon_node_html, depart_icon_node),
-    "latex": (visit_icon_node_latex, depart_icon_node),
+    "html": (visit_icon_node_html, depart_icon_node_html),
+    "latex": (visit_icon_node_latex, None),
     "man": (visit_icon_node_unsuported, None),
     "texinfo": (visit_icon_node_unsuported, None),
     "text": (visit_icon_node_unsuported, None),
 }
-
-
-def icon_role(name, rawtext, text, lineno, inliner, options={}, content=[]):
-    """
-    add inline icons
-
-    Returns 2 part tuple containing list of nodes to insert into the
-    document and a list of system messages.  Both are allowed to be
-    empty.
-
-    :param name: The role name used in the document.
-    :param rawtext: The entire markup snippet, with role.
-    :param text: The text marked with the role.
-    :param lineno: The line number where rawtext appears in the input.
-    :param inliner: The inliner instance that called us.
-    :param options: Directive options for customization.
-    :param content: The directive content for customization.
-    """
-
-    # create the node
-    node = icon(icon=text)
-
-    return [node], []

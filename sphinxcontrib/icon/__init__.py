@@ -1,23 +1,24 @@
+"""Icon extention to embed icon in sphinx outputs."""
+
+from typing import Any, Dict
+
+from sphinx.application import Sphinx
+
+from . import icon
+
 __version__ = "0.1.2"
 __author__ = "Pierrick Rambaud"
 __email__ = "pierrick.rambaud49@gmail.com"
 
-from . import icon
 
-
-def setup(app):
-    """Install the plugin.
-
-    :param app: Sphinx application context.
-    """
-
-    # download the font to the output folder
+def setup(app: Sphinx) -> Dict[str, Any]:
+    """Add icon node to the sphinx builder."""
     app.connect("builder-inited", icon.download_font_assets)
+    app.add_node(icon.icon_node, **icon._NODE_VISITORS)
+    app.add_role("icon", icon.Icon())
 
-    # create the node
-    app.add_node(icon.icon, **icon._NODE_VISITORS)
-
-    # create the role
-    app.add_role("icon", icon.icon_role)
-
-    return
+    return {
+        "version": __version__,
+        "parallel_read_safe": True,
+        "parallel_write_safe": True,
+    }

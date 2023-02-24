@@ -5,11 +5,11 @@ sphinx-icon
     :target: https://github.com/sphinx-contrib/icon/blob/main/LICENSE
     :alt: License: BSD 2-Clause
 
-.. image:: https://img.shields.io/pypi/v/sphinx-icon?logo=python&logoColor=white
+.. image:: https://img.shields.io/pypi/v/sphinx-icon?logo=python&logoColor=white&color=blue
     :target: https://pypi.org/project/sphinx-icon/
     :alt: PyPI
 
-.. image:: https://img.shields.io/pypi/pyversions/sphinx-icon?logo=python&logoColor=white
+.. image:: https://img.shields.io/pypi/pyversions/sphinx-icon?logo=python&logoColor=white&color=blue
     :target: https://pypi.org/project/sphinx-icon/
     :alt: supported Python version
 

@@ -1,6 +1,5 @@
 """Test sphinxcontrib.icon extension."""
 
-from pathlib import Path
 
 import pytest
 from bs4 import BeautifulSoup, formatter
@@ -22,8 +21,6 @@ def test_icon_latex(app, status, warning):
     app.builder.build_all()
 
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
-
-    Path("test.txt").write_text(result)
 
     assert "\\usepackage{fontawesome5}" in result
     assert "\\faIcon[solid]{folder}" in result

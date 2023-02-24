@@ -45,7 +45,7 @@ test = ["pytest", "beautifulsoup4", "pytest-regressions", "pytest-cov"]
 doc = ["pydata-sphinx-theme==0.13.0rc3", "sphinx-design", "sphinx-copybutton"]
 
 [tool.setuptools]
-include-package-data = false
+include-package-data = true
 license-files = ["LICENSE"]
 packages = ["sphinxcontrib.icon"]
 

@@ -23,8 +23,8 @@ def js_prerelease(command: Command, strict: bool = False) -> Command:
 
         def run(self) -> None:
             """Run the command."""
-            if not (ROOT / ".git").is_dir():  # sdist, nothing to do
-                return command.run(self)
+            # if not (ROOT / ".git").is_dir():  # sdist, nothing to do
+            #    return command.run(self)
 
             self.distribution.run_command("jsdeps")
             command.run(self)

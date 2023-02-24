@@ -18,7 +18,7 @@ def docs(session):
 def lint(session):
     """Apply the pre-commits."""
     session.install("pre-commit")
-    session.run("pre-commit", "run", "--a", *session.posargs)
+    session.run("pre-commit", "run", "-a", *session.posargs)
 
 
 @nox.session(reuse_venv=True)

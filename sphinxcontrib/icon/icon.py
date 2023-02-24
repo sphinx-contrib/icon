@@ -32,21 +32,21 @@ def get_glyph(text) -> Tuple[str, str]:
     """Get the glyph from text.
 
     Args:
-        text: The text to transform (e.g. "fa fa-folder")
+        text: The text to transform (e.g. "fas fa-folder")
 
     Returns:
-        (glyph, font): from the provided text. raise an error if one of them does not exist
+        (glyph, font): from the provided text. skip the node if one of them does not exist
     """
     # split the icon name to find the name inside
-    m = re.match(r"^(fab|far|fa|fas) fa-([\w-]+)$", text)
+    m = re.match(r"^(<font>fab|far|fa|fas) fa-(<glyph>[\w-]+)$", text)
     if not m:
         logger.warning(f'invalid icon name: "{text}"')
         raise nodes.SkipNode
-    if m.group(2) not in METADATA:
-        logger.warning(f'icon "{m.group(2)}" is not part of fontawesome 5.15.4')
+    if m.group("glyph") not in METADATA:
+        logger.warning(f'icon "{m.group("glyph")}" is not part of fontawesome')
         raise nodes.SkipNode
 
-    return m.group(1), m.group(2)  # (font, glyph)
+    return m.group("font"), m.group("gliph")
 
 
 def depart_icon_node_html(self, node: icon_node) -> None:
@@ -72,18 +72,13 @@ def visit_icon_node_latex(self, node: icon_node) -> None:
     font = font_list[font]
 
     # install fontawesome 5 package
-    # TODO install it on the fly using the otf files downloaded in var
     package = "\\usepackage{fontawesome5}"
     if package not in self.elements["preamble"]:
         self.elements["preamble"] += f"{package}\n"
 
     # build the output
-    cmd = "\\faIcon"
-    if font is not None:
-        cmd += f"[{font}]"
-    cmd += f"{{{glyph}}}"
-
-    self.body.append(cmd)
+    font_mark = f"[{font}]" if font else ""
+    self.body.append(f"\\faIcon{font_mark}{{{glyph}}}")
 
     return
 

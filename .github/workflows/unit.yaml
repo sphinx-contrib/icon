@@ -5,6 +5,15 @@ on:
   - workflow_dispatch
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - uses: pre-commit/action@v3.0.0
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -13,25 +22,27 @@ jobs:
         python-version: ["3.7", "3.8", "3.9", "3.10"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install dependencies
-        run: pip install .[test]
-      - name: Test formatting
-        uses: psf/black@stable
-      - name: PEP8 rules
-        uses: tonybajan/flake8-check-action@v1.0.0
-        with:
-          repotoken: ${{ secrets.GITHUB_TOKEN }}
+        run: pip install .[test,dev]
+
+      - name: Check static typing
+        run: mypy sphinxcontrib
+
       - name: test with pytest
-        run: coverage run -m pytest --color=yes tests
+        run: pytest --color=yes --cov --cov-report=xml tests
+
       - name: coverage
         run: coverage xml
+
       - name: codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true

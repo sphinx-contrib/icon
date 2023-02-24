@@ -126,3 +126,6 @@ dmypy.json
 
 # ruff
 .ruff_cache
+
+# node installed dependencies
+node_modules

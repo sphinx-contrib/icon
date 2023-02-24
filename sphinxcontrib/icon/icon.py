@@ -126,6 +126,11 @@ def visit_icon_node_latex(self, node: icon_node) -> None:
     return
 
 
+def depart_icon_node_latex(self, node: icon_node) -> None:
+    """Everything is done in the visit method."""
+    pass
+
+
 def visit_icon_node_unsuported(self, node: icon_node) -> None:
     """Raise error when the requested output is not supported."""
     logger.warning("Unsupported output format (node skipped)")
@@ -134,8 +139,9 @@ def visit_icon_node_unsuported(self, node: icon_node) -> None:
 
 _NODE_VISITORS = {
     "html": (visit_icon_node_html, depart_icon_node_html),
-    "latex": (visit_icon_node_latex, None),
+    "latex": (visit_icon_node_latex, depart_icon_node_latex),
     "man": (visit_icon_node_unsuported, None),
     "texinfo": (visit_icon_node_unsuported, None),
     "text": (visit_icon_node_unsuported, None),
+    "epub": (visit_icon_node_unsuported, None),
 }

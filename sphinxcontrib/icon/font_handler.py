@@ -5,8 +5,8 @@ from typing import Dict
 
 from yaml import safe_load
 
-ROOT = Path(__file__).parents[2]
-FA_DIR = ROOT / "node_modules" / "@fortawesome" / "fontawesome-free"
+HERE = Path(__file__).parent
+FA_DIR = HERE / "node_modules" / "@fortawesome" / "fontawesome-free"
 
 
 def get_metadata() -> Dict[str, str]:

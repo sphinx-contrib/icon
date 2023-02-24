@@ -4,7 +4,7 @@ from typing import Any, Dict
 
 from sphinx.application import Sphinx
 
-from sphinxcontrib.icon import font_handler, icon
+from . import font_handler, icon
 
 __version__ = "0.1.2"
 __author__ = "Pierrick Rambaud"

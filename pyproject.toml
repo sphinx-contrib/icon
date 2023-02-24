@@ -45,9 +45,18 @@ test = ["pytest", "beautifulsoup4", "pytest-regressions", "pytest-cov"]
 doc = ["pydata-sphinx-theme==0.13.0rc3", "sphinx-design", "sphinx-copybutton"]
 
 [tool.setuptools]
-include-package-data = true
+include-package-data = false
 license-files = ["LICENSE"]
 packages = ["sphinxcontrib.icon"]
+
+[tool.setuptools.package-data]
+"sphinxcontrib.icon" = [
+    "node_modules/**/all.min.css",
+    "node_modules/**/all.min.js",
+    "node_modules/**/icons.yml",
+    "package.json",
+    "package-lock.json"
+]
 
 [tool.ruff]
 ignore-init-module-imports = true

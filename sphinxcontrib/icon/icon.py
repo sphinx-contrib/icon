@@ -7,7 +7,7 @@ from docutils import nodes
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxRole
 
-from sphinxcontrib.icon import font_handler
+from . import font_handler
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +38,7 @@ def get_glyph(text) -> Tuple[str, str]:
         (glyph, font): from the provided text. skip the node if one of them does not exist
     """
     # split the icon name to find the name inside
-    m = re.match(r"^(<font>fab|far|fa|fas) fa-(<glyph>[\w-]+)$", text)
+    m = re.match("^(?P<font>fab|far|fa|fas) fa-(?P<glyph>[\\w-]+)$", text)
     if not m:
         logger.warning(f'invalid icon name: "{text}"')
         raise nodes.SkipNode
@@ -46,7 +46,7 @@ def get_glyph(text) -> Tuple[str, str]:
         logger.warning(f'icon "{m.group("glyph")}" is not part of fontawesome')
         raise nodes.SkipNode
 
-    return m.group("font"), m.group("gliph")
+    return m.group("font"), m.group("glyph")
 
 
 def depart_icon_node_html(self, node: icon_node) -> None:

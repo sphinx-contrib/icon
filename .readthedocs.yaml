@@ -6,8 +6,8 @@ build:
     python: "3.10"
     nodejs: "19"
   jobs:
-    post_create_environment:
-      - pip uninstall sphinx-rtd-theme
+    pre_install:
+      - pip install sphinx==5.3.0
 
 sphinx:
   configuration: docs/source/conf.py

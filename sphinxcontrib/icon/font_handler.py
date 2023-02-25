@@ -1,29 +1,35 @@
 """Handler to install the fontawesome resources in the build."""
 
 from pathlib import Path
-from typing import Dict
 
 from yaml import safe_load
 
 HERE = Path(__file__).parent
-FA_DIR = HERE / "node_modules" / "@fortawesome" / "fontawesome-free"
 
 
-def get_metadata() -> Dict[str, str]:
-    """Read yaml file to create a datatable of existing icons.
+class Fontawesome:
+    """All the parameter related to Fontawesome grouped in a singleton class."""
 
-    Returns:
-         the stored table if existing
-    """
-    file = FA_DIR / "metadata" / "icons.yml"
-    return safe_load(file.read_text())
-
-
-def get_css() -> str:
-    """Returns the complete path to the css file."""
-    return str((FA_DIR / "css" / "all.min.css").resolve())
-
-
-def get_js() -> str:
-    """Returns the complete path to the js file."""
-    return str((FA_DIR / "js" / "all.min.js").resolve())
+    fa_dir = HERE / "node_modules" / "@fortawesome" / "fontawesome-free"
+    regex = "^(?P<font>fa[\\w-]*) fa-(?P<glyph>[\\w-]+)$"
+    metadata = safe_load((fa_dir / "metadata" / "icons.yml").read_text())
+    css_file = fa_dir / "css" / "all.min.css"
+    js_file = fa_dir / "js" / "all.min.js"
+    html_font = {
+        "fa": "fa-solid",
+        "fas": "fa-solid",
+        "far": "fa-regular",
+        "fab": "fa-brands",
+        "fa-solid": "fa-solid",
+        "fa-regular": "fa-regular",
+        "fa-brands": "fa-brands",
+    }
+    latex_font = {
+        "fa": "solid",
+        "fas": "solid",
+        "far": "regular",
+        "fab": "brands",
+        "fa-solid": "solid",
+        "fa-regular": "regular",
+        "fa-brands": "brands",
+    }

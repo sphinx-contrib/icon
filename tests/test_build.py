@@ -33,5 +33,5 @@ def test_icon_html(app, status, warning, file_regression):
 
     html = (app.outdir / "index.html").read_text(encoding="utf8")
     html = BeautifulSoup(html, "html.parser")
-    icon = html.select("i.fas")[0].prettify(formatter=fmt)
+    icon = html.select("i.fa-solid")[0].prettify(formatter=fmt)
     file_regression.check(icon, basename="folder_icon", extension=".html")

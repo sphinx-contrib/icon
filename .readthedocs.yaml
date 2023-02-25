@@ -6,8 +6,8 @@ build:
     python: "3.10"
     nodejs: "19"
   jobs:
-    pre_install:
-      - pip install docutils==0.18.1
+    post_create_environment:
+      - pip uninstall sphinx-rtd-theme
 
 sphinx:
   configuration: docs/source/conf.py

@@ -7,13 +7,19 @@ sphinx-icon
    quickstart
    contribute
 
-The icon extension allows you to embed fontawesome icons as inline roles in a sphinx documentation.
+The icon extension allows you to embed fontawesome 6.3.0 icons as inline roles in a sphinx documentation.
 
 .. code-block:: rst
 
-    I'm a folder icon: :icon:`fa fa-folder`.
+    I'm an :icon:`fa-solid fa-folder` icon.
+    I'm an :icon:`fa-regular fa-user` icon.
+    I'm an :icon:`fa-brands fa-500px` icon.
 
-I'm a folder icon: :icon:`fa fa-folder`.
+I'm an :icon:`fa-solid fa-folder` icon.
+
+I'm an :icon:`fa-regular fa-user` icon.
+
+I'm an :icon:`fa-brands fa-500px` icon.
 
 Documentation contents
 ----------------------

@@ -28,8 +28,8 @@ class Fontawesome:
         "fa": "solid",
         "fas": "solid",
         "far": "regular",
-        "fab": "brands",
+        "fab": "brand",
         "fa-solid": "solid",
         "fa-regular": "regular",
-        "fa-brands": "brands",
+        "fa-brands": "brand",
     }

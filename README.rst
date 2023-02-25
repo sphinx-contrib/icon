@@ -37,8 +37,20 @@ Overview
 --------
 
 :code:`sphinx-icon` is a Sphinx extention to allow developers to use the :code:`icon` role to display inlined icons.
-The extention currently supports only Fontawsome 5.15.4 icons.
+The extention currently supports only Fontawsome 6.3.0 icons.
+
+.. code-block:: rst
+
+    I'm an :icon:`fa-solid fa-folder` icon.
+    I'm an :icon:`fa-regular fa-user` icon.
+    I'm an :icon:`fa-brands fa-500px` icon.
+
+.. image:: https://raw.githubusercontent.com/sphinx-contrib/icon/main/docs/_static/demo.png
+    :alt: demo result
+
 Please go to our `doc <https://sphinx-icon.readthedocs.io/en/latest/>`__ if you want to know more.
+
+
 
 Contribute
 ----------

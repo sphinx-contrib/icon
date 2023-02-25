@@ -33,9 +33,19 @@ You can now add icons directly in your documentation:
 
 .. code-block:: rst
 
-    I'm a folder icon: :icon:`fa fa-folder`.
+    I'm an :icon:`fa-solid fa-folder` icon.
+    I'm an :icon:`fa-regular fa-user` icon.
+    I'm an :icon:`fa-brands fa-500px` icon.
 
-I'm a folder icon: :icon:`fa fa-folder`.
+I'm an :icon:`fa-solid fa-folder` icon.
+
+I'm an :icon:`fa-regular fa-user` icon.
+
+I'm an :icon:`fa-brands fa-500px` icon.
+
+.. note::
+
+    Support is provided for older version of Fontawesome. Documentation using ``fas|far|fab`` or ``fa`` will continue working. Be aware that the icon you want to use may changed name since then.
 
 HTML output
 -----------

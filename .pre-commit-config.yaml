@@ -2,7 +2,7 @@ default_install_hook_types: [pre-commit, commit-msg]
 
 repos:
   - repo: "https://github.com/psf/black"
-    rev: "22.3.0"
+    rev: "22.10.0"
     hooks:
       - id: black
         stages: [commit]
@@ -15,7 +15,7 @@ repos:
         exclude: tests\/test_build\/.+\.html$
 
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: "v0.0.215"
+    rev: "v0.0.252"
     hooks:
       - id: ruff
         stages: [commit]

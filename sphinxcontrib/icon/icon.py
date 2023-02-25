@@ -7,11 +7,9 @@ from docutils import nodes
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxRole
 
-from . import font_handler
+from .font_handler import Fontawesome
 
 logger = logging.getLogger(__name__)
-
-METADATA = font_handler.get_metadata()
 
 
 class icon_node(nodes.General, nodes.Element):
@@ -38,11 +36,14 @@ def get_glyph(text) -> Tuple[str, str]:
         (glyph, font): from the provided text. skip the node if one of them does not exist
     """
     # split the icon name to find the name inside
-    m = re.match("^(?P<font>fab|far|fa|fas) fa-(?P<glyph>[\\w-]+)$", text)
+    m = re.match(Fontawesome.regex, text)
     if not m:
         logger.warning(f'invalid icon name: "{text}"')
         raise nodes.SkipNode
-    if m.group("glyph") not in METADATA:
+    if m.group("font") not in Fontawesome.html_font:
+        logger.warning(f'font "{m.group("font")}" is not part of fontawesome')
+        raise nodes.SkipNode
+    if m.group("glyph") not in Fontawesome.metadata:
         logger.warning(f'icon "{m.group("glyph")}" is not part of fontawesome')
         raise nodes.SkipNode
 
@@ -58,7 +59,7 @@ def depart_icon_node_html(self, node: icon_node) -> None:
 def visit_icon_node_html(self, node: icon_node) -> None:
     """Visit the html output."""
     font, glyph = get_glyph(node["icon"])
-    self.body.append(f'<i class="{font} fa-{glyph}">')
+    self.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
 
     return
 
@@ -68,8 +69,7 @@ def visit_icon_node_latex(self, node: icon_node) -> None:
     font, glyph = get_glyph(node["icon"])
 
     # detect the font
-    font_list = {"fa": "", "far": "regular", "fas": "solid", "fab": "brand"}
-    font = font_list[font]
+    font = Fontawesome.latex_font[font]
 
     # install fontawesome 5 package
     package = "\\usepackage{fontawesome5}"

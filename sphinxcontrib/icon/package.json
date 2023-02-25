@@ -2,6 +2,6 @@
   "name": "sphinxcontrib-icon",
   "repository": "https://github.com/sphinx-contrib/icon",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "5.15.4"
+    "@fortawesome/fontawesome-free": "6.3.0"
   }
 }

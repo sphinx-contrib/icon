@@ -51,7 +51,7 @@ class Fontawesome:
             dst = Path(app.builder.outdir) / f.name
             logger.info(f"Writing: {f.name}")
             ensuredir(app.builder.outdir)
-            copyfile(f, dst)
+            copyfile(str(f.resolve()), str(dst.resolve()))
 
     def add_latex_font(self, app: Sphinx, config: Config) -> None:
         """Add the fontawesome fontfamily in the preamble of the .tex file."""
@@ -71,4 +71,4 @@ class Fontawesome:
 
         Compulsory to access the fontspec package
         """
-        config.latex_engine = "xelatex"
+        config.latex_engine = "xelatex"  # type: ignore

@@ -22,10 +22,14 @@ def test_fa6_icon_latex(app, status, warning):
 
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
 
-    assert "\\usepackage{fontawesome5}" in result
-    assert "\\faIcon[solid]{folder}" in result
-    assert "\\faIcon[regular]{user}" in result
-    assert "\\faIcon[brand]{500px}" in result
+    assert r"\usepackage{fontspec}" in result
+    assert r"\newfontfamily{\solid}{fa-solid-900.ttf}" in result
+    assert r"\newfontfamily{\regular}{fa-regular-400.ttf}" in result
+    assert r"\newfontfamily{\brands}{fa-brands-400.ttf}" in result
+
+    assert r'{\solid\symbol{"F07B}}' in result
+    assert r'{\regular\symbol{"F007}}' in result
+    assert r'{\brands\symbol{"F26E}}' in result
 
 
 @pytest.mark.sphinx("latex", testroot="fa5-icon")
@@ -35,10 +39,9 @@ def test_fa5_icon_latex(app, status, warning):
 
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
 
-    assert "\\usepackage{fontawesome5}" in result
-    assert "\\faIcon[solid]{folder}" in result
-    assert "\\faIcon[regular]{user}" in result
-    assert "\\faIcon[brand]{500px}" in result
+    assert r'{\solid\symbol{"F07B}}' in result
+    assert r'{\regular\symbol{"F007}}' in result
+    assert r'{\brands\symbol{"F26E}}' in result
 
 
 @pytest.mark.sphinx("latex", testroot="fa4-icon")
@@ -48,8 +51,7 @@ def test_fa4_icon_latex(app, status, warning):
 
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
 
-    assert "\\usepackage{fontawesome5}" in result
-    assert "\\faIcon[solid]{folder}" in result
+    assert r'{\solid\symbol{"F07B}}' in result
 
 
 @pytest.mark.sphinx("html", testroot="fa6-icon")

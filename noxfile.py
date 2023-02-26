@@ -15,14 +15,6 @@ def docs(session):
 
 
 @nox.session(reuse_venv=True)
-def docs_latex(session):
-    """Build the documentation."""
-    session.install(".[doc]")
-    b = session.posargs[0] if session.posargs else "latexpdf"
-    session.run("sphinx-build", "-M", f"{b}", "docs", f"docs/_build/{b}")
-
-
-@nox.session(reuse_venv=True)
 def lint(session):
     """Apply the pre-commits."""
     session.install("pre-commit")

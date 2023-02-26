@@ -67,16 +67,18 @@ Then for each icon role occurence an :code:`<i>` tag will be used:
 Latex output
 ------------
 
-In the latex outut the `fontawesome5 package <https://www.ctan.org/pkg/fontawesome5>`__ is added to the :code:`preamble`:
+For the latex output, the **sphinx-icon** extention need to use the webfonts provided by fontawesome. It will thus force the use of the XeLaTex builder to allow use of the `fontspec package <https://ctan.org/pkg/fontspec?lang=en>`__. Then 3 new font will be added to the preamble of the tex file:
 
-.. code-block:: Latex
+.. code-block:: latex
 
-    \usepackage{fontawesome5}
+    \newfontfamily{\solid}{fa-solid-900.ttf}
+    \newfontfamily{\regular}{fa-regular-400.ttf}
+    \newfontfamily{\brands}{fa-brands-400.ttf}
 
 Then for each icon role occurence the following command will be used:
 
 .. code-block:: latex
 
-    \faIcon[style]{the-icon-name}
+    {\solid\symbol{"F007}}
 
-with :code:`style` being one of "regular", "solid" or "brand" and :code:`the-icon-name` being everything after :code:`fa-`.
+where ``solid`` is the font style selected in the role and ``F007`` being the unicode of the selected icon.

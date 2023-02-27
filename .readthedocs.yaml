@@ -9,7 +9,7 @@ build:
 sphinx:
   configuration: docs/conf.py
 
-formats: [epub, pdf]
+formats: [pdf]
 
 python:
   install:

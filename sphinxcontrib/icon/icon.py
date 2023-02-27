@@ -5,7 +5,7 @@ from typing import List, Tuple
 
 from docutils import nodes
 from sphinx.util import logging
-from sphinx.util.docutils import SphinxRole
+from sphinx.util.docutils import SphinxRole, SphinxTranslator
 
 from .font_handler import Fontawesome
 
@@ -50,45 +50,39 @@ def get_glyph(text) -> Tuple[str, str]:
     return m.group("font"), m.group("glyph")
 
 
-def depart_icon_node_html(self, node: icon_node) -> None:
+def depart_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
     """Depart the html node."""
-    self.body.append("</i>")
+    translator.body.append("</i>")
     pass
 
 
-def visit_icon_node_html(self, node: icon_node) -> None:
+def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the html output."""
     font, glyph = get_glyph(node["icon"])
-    self.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
+    translator.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
 
     return
 
 
-def visit_icon_node_latex(self, node: icon_node) -> None:
+def visit_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the latex output."""
+    # extract info from the node
     font, glyph = get_glyph(node["icon"])
 
-    # detect the font
-    font = Fontawesome.latex_font[font]
-
-    # install fontawesome 5 package
-    package = "\\usepackage{fontawesome5}"
-    if package not in self.elements["preamble"]:
-        self.elements["preamble"] += f"{package}\n"
-
     # build the output
-    font_mark = f"[{font}]" if font else ""
-    self.body.append(f"\\faIcon{font_mark}{{{glyph}}}")
+    font = Fontawesome.latex_font[font]
+    unicode = Fontawesome.metadata[glyph]["unicode"]
+    translator.body.append(r'{\%s\symbol{"%s}}' % (font, unicode.upper()))
 
     return
 
 
-def depart_icon_node_latex(self, node: icon_node) -> None:
+def depart_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None:
     """Everything is done in the visit method."""
     pass
 
 
-def visit_icon_node_unsuported(self, node: icon_node) -> None:
+def visit_icon_node_unsuported(translator: SphinxTranslator, node: icon_node) -> None:
     """Raise error when the requested output is not supported."""
     logger.warning("Unsupported output format (node skipped)")
     raise nodes.SkipNode

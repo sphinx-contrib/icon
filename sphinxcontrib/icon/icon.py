@@ -72,13 +72,14 @@ def visit_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None
     # build the output
     font = Fontawesome.latex_font[font]
     unicode = Fontawesome.metadata[glyph]["unicode"]
-    translator.body.append(r'{\%s\symbol{"%s}}' % (font, unicode.upper()))
+    translator.body.append(r'{\%s\symbol{"%s}' % (font, unicode.upper()))
 
     return
 
 
 def depart_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None:
-    """Everything is done in the visit method."""
+    """Depart the html node."""
+    translator.body.append(r"}")
     pass
 
 

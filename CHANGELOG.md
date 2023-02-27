@@ -1,3 +1,10 @@
+## v0.2.1 (2023-02-27)
+
+### Fix
+
+- close the command in depart method (#19)
+- close the command in depart method
+
 ## v0.2.0 (2023-02-27)
 
 ### Feat

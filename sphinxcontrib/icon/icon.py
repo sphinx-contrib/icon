@@ -1,7 +1,7 @@
 """The icon role definition."""
 
 import re
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from docutils import nodes
 from sphinx.util import logging
@@ -23,14 +23,15 @@ class Icon(SphinxRole):
 
     def run(self) -> Tuple[List[nodes.Node], List[str]]:
         """Setup the role in the builder context."""
-        return [icon_node(icon=self.text)], []
+        return [icon_node(icon=self.text, location=self.get_source_info())], []
 
 
-def get_glyph(text) -> Tuple[str, str]:
+def get_glyph(text: str, location: Optional[Tuple[str, int]] = None) -> Tuple[str, str]:
     """Get the glyph from text.
 
     Args:
         text: The text to transform (e.g. "fas fa-folder")
+        location: The file and lineos of the role
 
     Returns:
         (glyph, font): from the provided text. skip the node if one of them does not exist
@@ -38,13 +39,15 @@ def get_glyph(text) -> Tuple[str, str]:
     # split the icon name to find the name inside
     m = re.match(Fontawesome.regex, text)
     if not m:
-        logger.warning(f'invalid icon name: "{text}"')
+        logger.warning(f'invalid icon name: "{text}"', location=location)
         raise nodes.SkipNode
     if m.group("font") not in Fontawesome.html_font:
-        logger.warning(f'font "{m.group("font")}" is not part of fontawesome')
+        msg = f'font "{m.group("font")}" is not part of fontawesome'
+        logger.warning(msg, location=location)
         raise nodes.SkipNode
     if m.group("glyph") not in Fontawesome.metadata:
-        logger.warning(f'icon "{m.group("glyph")}" is not part of fontawesome')
+        msg = f'icon "{m.group("glyph")}" is not part of fontawesome'
+        logger.warning(msg, location=location)
         raise nodes.SkipNode
 
     return m.group("font"), m.group("glyph")
@@ -58,7 +61,8 @@ def depart_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None
 
 def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the html output."""
-    font, glyph = get_glyph(node["icon"])
+    location = node.get("location")  # default to None for non-regression
+    font, glyph = get_glyph(node["icon"], location)
     translator.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
 
     return
@@ -67,7 +71,8 @@ def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
 def visit_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the latex output."""
     # extract info from the node
-    font, glyph = get_glyph(node["icon"])
+    location = node.get("location")  # default to None for non-regression
+    font, glyph = get_glyph(node["icon"], location)
 
     # build the output
     font = Fontawesome.latex_font[font]
@@ -85,7 +90,9 @@ def depart_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> Non
 
 def visit_icon_node_unsuported(translator: SphinxTranslator, node: icon_node) -> None:
     """Raise error when the requested output is not supported."""
-    logger.warning("Unsupported output format (node skipped)")
+    location = node.get("location")  # default to None for non-regression
+    msg = "Unsupported output format (node skipped)"
+    logger.warning(msg, location=location)
     raise nodes.SkipNode
 
 

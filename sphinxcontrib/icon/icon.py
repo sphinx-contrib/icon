@@ -1,7 +1,7 @@
 """The icon role definition."""
 
 import re
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from docutils import nodes
 from sphinx.util import logging
@@ -26,7 +26,7 @@ class Icon(SphinxRole):
         return [icon_node(icon=self.text, location=self.get_source_info())], []
 
 
-def get_glyph(text: str, location: Tuple[str, int]) -> Tuple[str, str]:
+def get_glyph(text: str, location: Optional[Tuple[str, int]] = None) -> Tuple[str, str]:
     """Get the glyph from text.
 
     Args:
@@ -61,7 +61,8 @@ def depart_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None
 
 def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the html output."""
-    font, glyph = get_glyph(node["icon"], node["location"])
+    location = node.get("location")  # default to None for non-regression
+    font, glyph = get_glyph(node["icon"], location)
     translator.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
 
     return
@@ -70,7 +71,8 @@ def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
 def visit_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the latex output."""
     # extract info from the node
-    font, glyph = get_glyph(node["icon"], node["location"])
+    location = node.get("location")  # default to None for non-regression
+    font, glyph = get_glyph(node["icon"], location)
 
     # build the output
     font = Fontawesome.latex_font[font]
@@ -88,9 +90,9 @@ def depart_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> Non
 
 def visit_icon_node_unsuported(translator: SphinxTranslator, node: icon_node) -> None:
     """Raise error when the requested output is not supported."""
-    logger.warning(
-        "Unsupported output format (node skipped)", location=node["location"]
-    )
+    location = node.get("location")  # default to None for non-regression
+    msg = "Unsupported output format (node skipped)"
+    logger.warning(msg, location=location)
     raise nodes.SkipNode
 
 

@@ -38,15 +38,30 @@ def get_glyph(text: str, location: Optional[Tuple[str, int]] = None) -> Tuple[st
     """
     # split the icon name to find the name inside
     m = re.match(Fontawesome.regex, text)
+
+    # not a real icon string
     if not m:
         logger.warning(f'Ignoring: invalid icon format: "{text}".', location=location)
         raise nodes.SkipNode
+
     font, glyph = m.group("font"), m.group("glyph")
-    if font not in Fontawesome.html_font:
+
+    # check the font is supported, skip if not
+    if font not in Fontawesome.fonts:
         msg = f'Ignoring: font "{font}" is not part of fontawesome.'
         logger.warning(msg, location=location)
         raise nodes.SkipNode
+
+    # check the font is not deprecated, replace by the corresponding one
+    if font in Fontawesome.deprecated_fonts:
+        new_font = Fontawesome.fonts[font]
+        msg = f'Replacing: "{font}" is a deprecated alias of "{new_font}".'
+        logger.warning(msg, location=location)
+        font = new_font
+
+    # check the glyph is part of the available icons, skip if not found
     if glyph not in Fontawesome.metadata:
+        # it can be an alias, replace by the newest glyph name
         latest_glyph = Fontawesome.search_alias(glyph)
         if latest_glyph == "":
             msg = f'ignoring: icon "{glyph}" is not part of fontawesome.'
@@ -70,7 +85,7 @@ def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the html output."""
     location = node.get("location")  # default to None for non-regression
     font, glyph = get_glyph(node["icon"], location)
-    translator.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
+    translator.body.append(f'<i class="{font} fa-{glyph}">')
 
     return
 
@@ -82,8 +97,8 @@ def visit_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None
     font, glyph = get_glyph(node["icon"], location)
 
     # build the output
-    font = Fontawesome.latex_font[font]
     unicode = Fontawesome.metadata[glyph]["unicode"]
+    font = font.replace("-", "")  # "-" is not supported by sphinx in newcmd
     translator.body.append(r'{\%s\symbol{"%s}' % (font, unicode.upper()))
 
     return

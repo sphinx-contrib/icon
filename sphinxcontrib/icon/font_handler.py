@@ -23,7 +23,7 @@ class Fontawesome:
     css_file = fa_dir / "css" / "all.min.css"
     js_file = fa_dir / "js" / "all.min.js"
     webfont_folder = fa_dir / "webfonts"
-    html_font = {
+    fonts = {
         "fa": "fa-solid",
         "fas": "fa-solid",
         "far": "fa-regular",
@@ -32,15 +32,7 @@ class Fontawesome:
         "fa-regular": "fa-regular",
         "fa-brands": "fa-brands",
     }
-    latex_font = {
-        "fa": "solid",
-        "fas": "solid",
-        "far": "regular",
-        "fab": "brands",
-        "fa-solid": "solid",
-        "fa-regular": "regular",
-        "fa-brands": "brands",
-    }
+    deprecated_fonts = ["fa", "fas", "far", "fab"]
 
     def add_latex_font_files(self, app: Sphinx) -> None:
         """Copy the fontawesome files to the build repository for latex build."""
@@ -60,9 +52,9 @@ class Fontawesome:
 
         config.latex_elements["preamble"] += dedent(
             r"""
-        \newfontfamily{\solid}{fa-solid-900.ttf}
-        \newfontfamily{\regular}{fa-regular-400.ttf}
-        \newfontfamily{\brands}{fa-brands-400.ttf}
+        \newfontfamily{\fasolid}{fa-solid-900.ttf}
+        \newfontfamily{\faregular}{fa-regular-400.ttf}
+        \newfontfamily{\fabrands}{fa-brands-400.ttf}
         """
         )
 

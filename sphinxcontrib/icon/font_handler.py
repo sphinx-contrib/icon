@@ -72,3 +72,25 @@ class Fontawesome:
         Compulsory to access the fontspec package
         """
         config.latex_engine = "xelatex"  # type: ignore
+
+    @classmethod
+    def search_alias(cls, icon_name: str) -> str:
+        """Search for the text in the potential aliases of fontawesome.
+
+        This method should only be called after checking the name against metadata to avoid
+        calling it for each icon.
+
+        Args:
+            icon_name: the name of the icon to search for. it should not be a label
+
+        Returns:
+            the name of the icon, empty string if not found
+        """
+        latest_name = ""
+        for label, meta in cls.metadata.items():
+            aliases = meta.get("aliases", {}).get("names", [])
+            if icon_name in aliases:
+                latest_name = label
+                break
+
+        return latest_name

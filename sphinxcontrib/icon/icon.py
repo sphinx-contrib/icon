@@ -39,18 +39,25 @@ def get_glyph(text: str, location: Optional[Tuple[str, int]] = None) -> Tuple[st
     # split the icon name to find the name inside
     m = re.match(Fontawesome.regex, text)
     if not m:
-        logger.warning(f'invalid icon name: "{text}"', location=location)
+        logger.warning(f'Ignoring: invalid icon format: "{text}".', location=location)
         raise nodes.SkipNode
-    if m.group("font") not in Fontawesome.html_font:
-        msg = f'font "{m.group("font")}" is not part of fontawesome'
+    font, glyph = m.group("font"), m.group("glyph")
+    if font not in Fontawesome.html_font:
+        msg = f'Ignoring: font "{font}" is not part of fontawesome.'
         logger.warning(msg, location=location)
         raise nodes.SkipNode
-    if m.group("glyph") not in Fontawesome.metadata:
-        msg = f'icon "{m.group("glyph")}" is not part of fontawesome'
-        logger.warning(msg, location=location)
-        raise nodes.SkipNode
+    if glyph not in Fontawesome.metadata:
+        latest_glyph = Fontawesome.search_alias(glyph)
+        if latest_glyph == "":
+            msg = f'ignoring: icon "{glyph}" is not part of fontawesome.'
+            logger.warning(msg, location=location)
+            raise nodes.SkipNode
+        else:
+            msg = f'Replacing: icon "{glyph}" is an alias of "{latest_glyph}".'
+            logger.warning(msg, location=location)
+            glyph = latest_glyph
 
-    return m.group("font"), m.group("glyph")
+    return font, glyph
 
 
 def depart_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:

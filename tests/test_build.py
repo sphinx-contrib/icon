@@ -65,11 +65,11 @@ def test_fa6_icon_html(app, status, warning, file_regression):
     folder = html.select("i.fa-solid")[0].prettify(formatter=fmt)
     file_regression.check(folder, basename="folder_icon", extension=".html")
 
-    html.select("i.fa-regular")[0].prettify(formatter=fmt)
-    file_regression.check(folder, basename="pencil_icon", extension=".html")
+    pencil = html.select("i.fa-regular")[0].prettify(formatter=fmt)
+    file_regression.check(pencil, basename="pencil_icon", extension=".html")
 
-    html.select("i.fa-brands")[0].prettify(formatter=fmt)
-    file_regression.check(folder, basename="github_icon", extension=".html")
+    github = html.select("i.fa-brands")[0].prettify(formatter=fmt)
+    file_regression.check(github, basename="github_icon", extension=".html")
 
 
 @pytest.mark.sphinx("html", testroot="fa5-icon")
@@ -83,11 +83,11 @@ def test_fa5_icon_html(app, status, warning, file_regression):
     folder = html.select("i.fa-solid")[0].prettify(formatter=fmt)
     file_regression.check(folder, basename="folder_icon", extension=".html")
 
-    html.select("i.fa-regular")[0].prettify(formatter=fmt)
-    file_regression.check(folder, basename="pencil_icon", extension=".html")
+    pencil = html.select("i.fa-regular")[0].prettify(formatter=fmt)
+    file_regression.check(pencil, basename="pencil_icon", extension=".html")
 
-    html.select("i.fa-brands")[0].prettify(formatter=fmt)
-    file_regression.check(folder, basename="github_icon", extension=".html")
+    github = html.select("i.fa-brands")[0].prettify(formatter=fmt)
+    file_regression.check(github, basename="github_icon", extension=".html")
 
 
 @pytest.mark.sphinx("html", testroot="fa4-icon")
@@ -100,3 +100,25 @@ def test_fa4_icon_html(app, status, warning, file_regression):
 
     folder = html.select("i.fa-solid")[0].prettify(formatter=fmt)
     file_regression.check(folder, basename="folder_icon", extension=".html")
+
+
+@pytest.mark.sphinx("html", testroot="fa6-alias-icon")
+def test_fa6_alias_icon_html(app, status, warning, file_regression):
+    """Build an icon role in HTML using the trash-alt alias for trash-can."""
+    app.builder.build_all()
+
+    assert 'icon "trash-alt" is an alias of "trash-can"' in warning.getvalue()
+
+    html = (app.outdir / "index.html").read_text(encoding="utf8")
+    html = BeautifulSoup(html, "html.parser")
+
+    trash = html.select("i.fa-solid")[0].prettify(formatter=fmt)
+    file_regression.check(trash, basename="trash_can_icon", extension=".html")
+
+
+@pytest.mark.sphinx("html", testroot="fa6-wrong-icon")
+def test_fa6_wrong_icon_html(app, status, warning):
+    """Build an icon role in HTML using a non existing icon."""
+    app.builder.build_all()
+
+    assert 'icon "toto" is not part of fontawesome' in warning.getvalue()

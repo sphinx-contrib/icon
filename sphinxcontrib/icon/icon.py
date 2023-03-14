@@ -43,14 +43,13 @@ def get_glyph(text: str, location: Optional[Tuple[str, int]] = None) -> Tuple[st
         raise nodes.SkipNode
     font, glyph = m.group("font"), m.group("glyph")
     if font not in Fontawesome.html_font:
-        msg = f'font "{font}" is not part of fontawesome'
+        msg = f'font "{font}" is not part of fontawesome, ignoring'
         logger.warning(msg, location=location)
         raise nodes.SkipNode
     if glyph not in Fontawesome.metadata:
-        # check if it's not an alias
         latest_glyph = Fontawesome.search_alias(glyph)
         if latest_glyph == "":
-            msg = f'icon "{glyph}" is not part of fontawesome'
+            msg = f'icon "{glyph}" is not part of fontawesome, ignoring'
             logger.warning(msg, location=location)
             raise nodes.SkipNode
         else:

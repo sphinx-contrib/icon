@@ -7,7 +7,7 @@ from sphinx.application import Sphinx
 from .font_handler import Fontawesome
 from .icon import _NODE_VISITORS, Icon, icon_node
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 __author__ = "Pierrick Rambaud"
 __email__ = "pierrick.rambaud49@gmail.com"
 

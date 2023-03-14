@@ -1,3 +1,21 @@
+## v0.2.2 (2023-03-14)
+
+### Fix
+
+- support deprecated font names (#26)
+- supprt deprecated fonts
+- accept aliases of icon names (#25)
+- accept aliases but raise an error
+- display the source information in warning messages (#24)
+- make the location optional
+- add the location to warnings
+- point to the new conf.py
+
+### Refactor
+
+- add comments
+- improve warning messages
+
 ## v0.2.1 (2023-02-27)
 
 ### Fix

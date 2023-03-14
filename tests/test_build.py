@@ -23,13 +23,13 @@ def test_fa6_icon_latex(app, status, warning):
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
 
     assert r"\usepackage{fontspec}" in result
-    assert r"\newfontfamily{\solid}{fa-solid-900.ttf}" in result
-    assert r"\newfontfamily{\regular}{fa-regular-400.ttf}" in result
-    assert r"\newfontfamily{\brands}{fa-brands-400.ttf}" in result
+    assert r"\newfontfamily{\fasolid}{fa-solid-900.ttf}" in result
+    assert r"\newfontfamily{\faregular}{fa-regular-400.ttf}" in result
+    assert r"\newfontfamily{\fabrands}{fa-brands-400.ttf}" in result
 
-    assert r'{\solid\symbol{"F07B}}' in result
-    assert r'{\regular\symbol{"F007}}' in result
-    assert r'{\brands\symbol{"F26E}}' in result
+    assert r'{\fasolid\symbol{"F07B}}' in result
+    assert r'{\faregular\symbol{"F007}}' in result
+    assert r'{\fabrands\symbol{"F26E}}' in result
 
 
 @pytest.mark.sphinx("latex", testroot="fa5-icon")
@@ -37,11 +37,15 @@ def test_fa5_icon_latex(app, status, warning):
     """Build an icon role in Latex."""
     app.builder.build_all()
 
+    assert '"fas" is a deprecated alias of "fa-solid"' in warning.getvalue()
+    assert '"far" is a deprecated alias of "fa-regular"' in warning.getvalue()
+    assert '"fab" is a deprecated alias of "fa-brands"' in warning.getvalue()
+
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
 
-    assert r'{\solid\symbol{"F07B}}' in result
-    assert r'{\regular\symbol{"F007}}' in result
-    assert r'{\brands\symbol{"F26E}}' in result
+    assert r'{\fasolid\symbol{"F07B}}' in result
+    assert r'{\faregular\symbol{"F007}}' in result
+    assert r'{\fabrands\symbol{"F26E}}' in result
 
 
 @pytest.mark.sphinx("latex", testroot="fa4-icon")
@@ -49,9 +53,11 @@ def test_fa4_icon_latex(app, status, warning):
     """Build an icon role in Latex."""
     app.builder.build_all()
 
+    assert '"fa" is a deprecated alias of "fa-solid"' in warning.getvalue()
+
     result = (app.outdir / "test-icon.tex").read_text(encoding="utf8")
 
-    assert r'{\solid\symbol{"F07B}}' in result
+    assert r'{\fasolid\symbol{"F07B}}' in result
 
 
 @pytest.mark.sphinx("html", testroot="fa6-icon")
@@ -77,6 +83,10 @@ def test_fa5_icon_html(app, status, warning, file_regression):
     """Build an icon role in HTML."""
     app.builder.build_all()
 
+    assert '"fas" is a deprecated alias of "fa-solid"' in warning.getvalue()
+    assert '"far" is a deprecated alias of "fa-regular"' in warning.getvalue()
+    assert '"fab" is a deprecated alias of "fa-brands"' in warning.getvalue()
+
     html = (app.outdir / "index.html").read_text(encoding="utf8")
     html = BeautifulSoup(html, "html.parser")
 
@@ -94,6 +104,8 @@ def test_fa5_icon_html(app, status, warning, file_regression):
 def test_fa4_icon_html(app, status, warning, file_regression):
     """Build an icon role in HTML."""
     app.builder.build_all()
+
+    assert '"fa" is a deprecated alias of "fa-solid"' in warning.getvalue()
 
     html = (app.outdir / "index.html").read_text(encoding="utf8")
     html = BeautifulSoup(html, "html.parser")

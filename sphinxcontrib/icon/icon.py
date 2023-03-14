@@ -42,10 +42,15 @@ def get_glyph(text: str, location: Optional[Tuple[str, int]] = None) -> Tuple[st
         logger.warning(f'Ignoring: invalid icon format: "{text}".', location=location)
         raise nodes.SkipNode
     font, glyph = m.group("font"), m.group("glyph")
-    if font not in Fontawesome.html_font:
+    if font not in Fontawesome.fonts:
         msg = f'Ignoring: font "{font}" is not part of fontawesome.'
         logger.warning(msg, location=location)
         raise nodes.SkipNode
+    if font in Fontawesome.deprecated_fonts:
+        new_font = Fontawesome.fonts[font]
+        msg = f'Replacing: "{font}" is a deprecated alias of "{new_font}".'
+        logger.warning(msg, location=location)
+        font = new_font
     if glyph not in Fontawesome.metadata:
         latest_glyph = Fontawesome.search_alias(glyph)
         if latest_glyph == "":
@@ -70,7 +75,7 @@ def visit_icon_node_html(translator: SphinxTranslator, node: icon_node) -> None:
     """Visit the html output."""
     location = node.get("location")  # default to None for non-regression
     font, glyph = get_glyph(node["icon"], location)
-    translator.body.append(f'<i class="{Fontawesome.html_font[font]} fa-{glyph}">')
+    translator.body.append(f'<i class="{font} fa-{glyph}">')
 
     return
 
@@ -82,9 +87,10 @@ def visit_icon_node_latex(translator: SphinxTranslator, node: icon_node) -> None
     font, glyph = get_glyph(node["icon"], location)
 
     # build the output
-    font = Fontawesome.latex_font[font]
     unicode = Fontawesome.metadata[glyph]["unicode"]
-    translator.body.append(r'{\%s\symbol{"%s}' % (font, unicode.upper()))
+    translator.body.append(
+        r'{\%s\symbol{"%s}' % (font.replace("-", ""), unicode.upper())
+    )
 
     return
 

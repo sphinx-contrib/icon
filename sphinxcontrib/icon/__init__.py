@@ -22,8 +22,8 @@ def setup(app: Sphinx) -> Dict[str, Any]:
     font_handler = Fontawesome()
 
     # install html related files
-    app.add_css_file(str(font_handler.css_file.resolve()))
-    app.add_js_file(str(font_handler.js_file.resolve()))
+    app.add_css_file(str(font_handler.css_file))
+    app.add_js_file(str(font_handler.js_file))
 
     # install latex files
     app.add_latex_package("fontspec")

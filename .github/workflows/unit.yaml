@@ -27,7 +27,6 @@ jobs:
         run: nox -s mypy
 
   build:
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -37,6 +36,7 @@ jobs:
             python-version: "3.11"
           - os: windows-latest
             python-version: "3.11"
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4

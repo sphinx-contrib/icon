@@ -27,6 +27,7 @@ jobs:
         run: nox -s mypy
 
   build:
+    needs: [lint, mypy]
     strategy:
       fail-fast: false
       matrix:
@@ -49,6 +50,7 @@ jobs:
         run: nox -s test
 
   coverage:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

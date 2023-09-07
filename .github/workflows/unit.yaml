@@ -14,6 +14,18 @@ jobs:
           python-version: "3.10"
       - uses: pre-commit/action@v3.0.0
 
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install nox
+        run: pip install nox
+      - name: Check static typing
+        run: nox -s mypy
+
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -25,27 +37,27 @@ jobs:
             python-version: "3.11"
           - os: windows-latest
             python-version: "3.11"
-
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: pip install .[test,dev]
-
-      - name: Check static typing
-        run: mypy sphinxcontrib
-
+      - name: Install nox
+        run: pip install nox
       - name: test with pytest
-        run: pytest --color=yes --cov --cov-report=xml tests
+        run: nox -s test
 
-      - name: coverage
-        run: coverage xml
-
+  coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install nox and coverage
+        run: pip install nox
+      - name: test with pytest
+        run: nox -s test
       - name: codecov
         uses: codecov/codecov-action@v3
         with:

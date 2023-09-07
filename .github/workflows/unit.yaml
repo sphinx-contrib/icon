@@ -49,6 +49,18 @@ jobs:
       - name: test with pytest
         run: nox -s test
 
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install nox
+        run: pip install nox
+      - name: Build docs
+        run: nox -s docs
+
   coverage:
     needs: [build]
     runs-on: ubuntu-latest

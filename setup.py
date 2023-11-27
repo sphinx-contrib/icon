@@ -43,7 +43,8 @@ class NPM(Command):
 
     def run(self):
         """Run the command."""
-        NPMPackage(ROOT / "sphinxcontrib" / "icon" / "package.json").install()
+        package = ROOT / "sphinxcontrib" / "icon" / "package.json"
+        NPMPackage(str(package)).install()
         update_package_data(self.distribution)
 
 

@@ -12,7 +12,7 @@ def docs(session):
     """Build the documentation."""
     session.install(".[doc]")
     b = session.posargs[0] if session.posargs else "html"
-    dst = Path(__filename__)/"docs"/"_builds"/b
+    dst = Path(__file__)/"docs"/"_builds"/b
     session.run("sphinx-build", f"-b={b}", "-a", "-E", "docs", str(dst))
 
 

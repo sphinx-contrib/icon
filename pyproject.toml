@@ -40,9 +40,21 @@ content-type = "text/x-rst"
 repository = "https://github.com/sphinx-contrib/icon"
 
 [project.optional-dependencies]
-dev = ["nox", "pre-commit", "mypy"]
-test = ["pytest", "beautifulsoup4", "pytest-regressions", "pytest-cov"]
-doc = ["pydata-sphinx-theme==0.13.0rc3", "sphinx-design", "sphinx-copybutton"]
+dev = [
+    "nox",
+    "pre-commit",
+]
+test = [
+    "pytest",
+    "beautifulsoup4",
+    "pytest-regressions",
+    "pytest-cov"
+]
+doc = [
+    "pydata-sphinx-theme",
+    "sphinx-design",
+    "sphinx-copybutton"
+]
 
 [tool.setuptools]
 include-package-data = false

@@ -12,7 +12,7 @@ def docs(session):
     """Build the documentation."""
     session.install(".[doc]")
     b = session.posargs[0] if session.posargs else "html"
-    dst = Path(__file__)/"docs"/"_builds"/b
+    dst = Path(__file__).parent / "docs" / "_build" / b
     session.run("sphinx-build", f"-b={b}", "-a", "-E", "docs", str(dst))
 
 
@@ -20,13 +20,13 @@ def docs(session):
 def lint(session):
     """Apply the pre-commits."""
     session.install("pre-commit")
-    session.run("pre-commit", "run", "-a", *session.posargs)
+    session.run("pre-commit", "run", "--all-files")
 
 
 @nox.session(reuse_venv=True)
 def mypy(session):
     """Run a mypy check of the lib."""
-    session.install(".[dev]")
+    session.install("mypy")
     test_files = session.posargs or ["sphinxcontrib"]
     session.run("mypy", *test_files)
 

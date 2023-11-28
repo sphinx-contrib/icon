@@ -45,7 +45,7 @@ class NPM(Command):
         """Run the command."""
         package = ROOT / "sphinxcontrib" / "icon" / "package.json"
         assert package.exists(), f"{package} does not exist."
-        NPMPackage(str(package)).install()
+        NPMPackage(str(package.resolve())).install()
         update_package_data(self.distribution)
 
 

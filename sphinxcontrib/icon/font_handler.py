@@ -9,7 +9,7 @@ from sphinx.util import logging
 from sphinx.util.osutil import copyfile, ensuredir
 from yaml import safe_load
 
-HERE = Path(__file__).parent
+HERE = Path(__file__).parent.resolve()
 
 logger = logging.getLogger(__name__)
 

@@ -43,7 +43,7 @@ class Fontawesome:
             dst = Path(app.builder.outdir) / f.name
             logger.info(f"Writing: {f.name}")
             ensuredir(app.builder.outdir)
-            copyfile(str(f.resolve()), str(dst.resolve()))
+            copyfile(str(f), str(dst))
 
     def add_latex_font(self, app: Sphinx, config: Config) -> None:
         """Add the fontawesome fontfamily in the preamble of the .tex file."""

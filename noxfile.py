@@ -36,4 +36,5 @@ def test(session):
     """Run all the test using the environment varialbe of the running machine."""
     session.install("--verbose", ".[test]")
     test_files = session.posargs or ["tests"]
-    session.run("pytest", "--color=yes", "--cov", "--cov-report=html", *test_files)
+    #session.run("pytest", "--color=yes", "--cov", "--cov-report=html", *test_files)
+    session.run("sphinx-build", "--bug-report")

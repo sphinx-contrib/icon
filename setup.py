@@ -1,3 +1,4 @@
+import platform
 from pathlib import Path
 
 from pynpm import NPMPackage
@@ -7,6 +8,10 @@ from setuptools.command.egg_info import egg_info
 from setuptools.command.sdist import sdist
 
 ROOT = Path(__file__).parent
+
+# create a global variable to check if we are on windows
+# to pilot the shell option to run the tests
+is_windows = platform.system() == "Windows"
 
 
 def update_package_data(distribution) -> None:
@@ -43,7 +48,8 @@ class NPM(Command):
 
     def run(self):
         """Run the command."""
-        NPMPackage(ROOT / "sphinxcontrib" / "icon" / "package.json").install()
+        package = ROOT / "sphinxcontrib" / "icon" / "package.json"
+        NPMPackage(str(package), shell=is_windows).install()
         update_package_data(self.distribution)
 
 

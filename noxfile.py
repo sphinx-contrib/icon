@@ -13,7 +13,7 @@ def docs(session):
     session.install(".[doc]")
     b = session.posargs[0] if session.posargs else "html"
     dst = Path(__file__).parent / "docs" / "_build" / b
-    session.run("sphinx-build", f"-b={b}", "-a", "-E", "docs", str(dst))
+    session.run("sphinx-build", f"-b={b}", "-a", "-E", "docs", dst.resolve())
 
 
 @nox.session(reuse_venv=True)

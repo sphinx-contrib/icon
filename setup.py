@@ -26,7 +26,7 @@ def js_prerelease(command: Command, strict: bool = False) -> Command:
         def run(self) -> None:
             """Run the command."""
             package = ROOT / "sphinxcontrib" / "icon" / "package.json"
-            NPMPackage(str(package), shell=is_windows).install()
+            NPMPackage(package.resolve(), shell=is_windows).install()
             update_package_data(self.distribution)
             command.run(self)
 

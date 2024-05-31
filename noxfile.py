@@ -34,6 +34,6 @@ def mypy(session):
 @nox.session(reuse_venv=True)
 def test(session):
     """Run all the test using the environment varialbe of the running machine."""
-    session.install("--verbose", ".[test]")
-    # session.run("pytest", "--color=yes", "--cov", "--cov-report=html", *test_files)
-    session.run("sphinx-build", "--bug-report")
+    session.install(".[test]")
+    test_files = session.posargs or ["tests"]
+    session.run("pytest", "--color=yes", "--cov", "--cov-report=xml", *test_files)

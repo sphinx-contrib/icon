@@ -36,4 +36,5 @@ def test(session):
     """Run all the test using the environment varialbe of the running machine."""
     session.install(".[test]")
     session.install("git+https://github.com/12rambau/sphinx.git@windows")
+    test_files = session.posargs or ["tests"]
     session.run("pytest", "--color=yes", "--cov", "--cov-report=xml", *test_files)

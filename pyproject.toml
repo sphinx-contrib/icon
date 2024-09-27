@@ -67,6 +67,7 @@ packages = ["sphinxcontrib.icon"]
     "node_modules/**/all.min.js",
     "node_modules/**/icons.yml",
     "node_modules/**/*.ttf",
+    "node_modules/**/*.woff2",
     "package.json",
     "package-lock.json"
 ]

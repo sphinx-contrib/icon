@@ -50,13 +50,11 @@ class Fontawesome:
         if "preamble" not in config.latex_elements:
             config.latex_elements["preamble"] = ""
 
-        config.latex_elements["preamble"] += dedent(
-            r"""
+        config.latex_elements["preamble"] += dedent(r"""
         \newfontfamily{\fasolid}{fa-solid-900.ttf}
         \newfontfamily{\faregular}{fa-regular-400.ttf}
         \newfontfamily{\fabrands}{fa-brands-400.ttf}
-        """
-        )
+        """)
 
     def enforce_xelatex(self, app: Sphinx, config: Config) -> None:
         """Force the builder to use the XeLaTex builder instead of vanilla Latex.

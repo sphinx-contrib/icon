@@ -1,6 +1,5 @@
 """Test sphinxcontrib.icon extension."""
 
-
 import pytest
 from bs4 import BeautifulSoup, formatter
 
